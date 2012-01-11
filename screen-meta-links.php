@@ -27,10 +27,6 @@ class wsScreenMetaLinks10 {
 		add_action('admin_notices', array($this, 'append_meta_links'));
 	}
 	
-	function FUCKERS() {
-		echo "FUCKERS ";
-	}
-	
 	/**
 	 * Add a new link to the screen meta area.
 	 * 
@@ -79,9 +75,7 @@ class wsScreenMetaLinks10 {
 	 */
 	function append_meta_links(){
 		global $hook_suffix;
-		
-		//echo "MOTHA FUCKA";
-		
+				
 		//Find links registered for this page
 		$links = $this->get_links_for_page($hook_suffix);
 		
