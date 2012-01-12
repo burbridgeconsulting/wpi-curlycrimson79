@@ -55,7 +55,7 @@ margin: 0 auto; }
 
 
 
-.isotope-item                 { width: 188px; min-height: 323px; margin: 6px 0 !important; padding: 5px 15px 10px !important; display: block; text-align: left; overflow: hidden; background: #eaeaea;
+.isotope-item                 { width: 188px; height: 323px; max-height: 323px; margin: 6px 0 !important; padding: 5px 15px 10px !important; display: block; text-align: left; overflow: hidden; background: #eaeaea;
 -webkit-border-radius: 4px;
    -moz-border-radius: 4px;  
         border-radius: 4px;

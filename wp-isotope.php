@@ -229,7 +229,7 @@ class WPIsotope {
 	
 	function Scripts() {
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'WPIsotope_js', plugin_dir_url( __FILE__ ) . '/isotope/jquery.isotope.min.js', array('jquery'), '1.4.110906' );
+		wp_enqueue_script( 'WPIsotope_js', plugin_dir_url( __FILE__ ) . '/js/jquery.isotope.min.js', array('jquery'), '1.4.110906' );
 	//	wp_enqueue_script( 'thickbox' );
 	}
 	
