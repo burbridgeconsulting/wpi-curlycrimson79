@@ -102,11 +102,16 @@ margin: 0 auto; }
 	line-height: 1.2;
 }
 
+.isotope-item .iso-header {
+	margin-top: 9px;
+}
+
+.isotope-item .iso-header a,
 .isotope-item .iso-footer a {
 	text-decoration: none;
 }
 
-.isotope-item .iso-footer .avatar {
+.isotope-item .avatar {
 	margin-right: 5px;
 	float: left;
 }

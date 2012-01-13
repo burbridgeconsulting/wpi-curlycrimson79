@@ -275,7 +275,7 @@ class WPIsotope {
 	}
 	
 	function ReadMore() {
-		return "<a class='iso-read-more' href='" . get_permalink() . "'>View as Single Page</a>";
+		return "<a class='iso-read-more' href='" . get_permalink() . "'>Permalink</a>";
 	}
 		
 	function ExcerptLength($length) {
@@ -462,9 +462,9 @@ class WPIsotope {
 				
 				$output .= "<div class='iso-meta iso-header'>";
 				$output .= $avatar;
-				$output .= "<a class='iso-author' href='" . $link . "'>" . $author . "</a>";
-				$output .= "<span class='iso-date'>" . get_the_date() . "</span>";
-				$output .= "<a class='iso-permalink' href='" . $perma . "'>View as single page</a>";
+				$output .= "<a class='iso-author' href='" . $link . "'>" . $author . "</a> ";
+				$output .= "<span class='iso-date'>" . get_the_date() . "</span> ";
+				$output .= "<a class='iso-permalink' href='" . $perma . "'>Permalink</a>";
 				$output .= "</div>";
 				
 				$output .= "<h2 class='title'>" . get_the_title() . "</h2>";
@@ -481,7 +481,7 @@ class WPIsotope {
 				
 				$output .= "<div class='iso-meta iso-footer'>";
 				$output .= $avatar;
-				$output .= "<span class='iso-author'>From <a href='" . $link . "' >" . $author . "</a></span>";
+				$output .= "<span class='iso-author'>From <a href='" . $link . "' >" . $author . "</a></span> ";
 				$output .= "<div class='iso-comments'>" . $comment . " comments </div>";
 				$output .= "</div>";
 				
