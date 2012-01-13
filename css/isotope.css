@@ -5,6 +5,7 @@
 	height: 80%;
 	min-height: 600px;
 	padding-bottom: 50px;
+	margin-top: 14px;
 }
 
 /**** Isotope Filtering ****/
@@ -215,16 +216,16 @@
 
 .sort,
 .filters {
-	border-bottom: 1px solid #999;
-	padding-left: 50px;
-	margin: 0 0 20px;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 3px;
+	margin: 0 0 8px;
 	clear: both;
 }
 
 .sort li,
 .filters li {
 	position: relative;
-	margin: 0 5px 5px;
+	margin: 0 6px 5px 0;
 	float: left;
 	list-style: none;
 }
@@ -260,6 +261,7 @@
 
 .cf {
 	zoom: 1;
+	margin-top: 2px;
 }
 
 .navigation {
