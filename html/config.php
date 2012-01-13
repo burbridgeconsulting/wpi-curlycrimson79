@@ -6,15 +6,16 @@
 
 <?php
 /************** DEFAULTS *****************/
-define(DEFAULT_PPP, 20);
+define(DEFAULT_PPP, 20); 
+define(DEFAULT_RAND, 'menu_order');
 ?>
 
 <div class="wrap" id="isotope-wrap"> 
 
 	<form method="post" action="options.php"> 
 	
-		<?php      
-			// delete_option('WPIsotopeSettings');		
+		<?php         
+			delete_option('WPIsotopeSettings');		
 		
 			settings_fields( 'WPIsotopeSettings' ); 
 			$options       = get_option( 'WPIsotopeSettings' );
@@ -23,7 +24,7 @@ define(DEFAULT_PPP, 20);
 			$layout        = $options['layout'];
 			$order         = $options['order'];
 			if ($options['ppp']) { $ppp = $options['ppp']; } else { $ppp = DEFAULT_PPP; };
-			$rand          = $options['rand'];
+			if ($options['rand']) { $rand = $options['rand']; } else { $rand = DEFAULT_RAND; };
 			
 			$filter_types  = $options['filter-type'];
 			$filter_cats   = $options['filter-cat'];
@@ -33,8 +34,7 @@ define(DEFAULT_PPP, 20);
 			$sort_types    = $options['sort-type'];
 			$sort_taxs     = $options['sort-tax'];
 			$sort_cats     = $options['sort-cat'];
-			$sort_format   = $options['sort-format'];
-					
+			$sort_format   = $options['sort-format'];					
 		?>
 		
 		<?php //print_r($options); ?>
