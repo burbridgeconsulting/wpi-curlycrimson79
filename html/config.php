@@ -10,6 +10,8 @@ define(DEFAULT_PPP, 20);
 define(DEFAULT_RAND, 'menu_order');
 define(DEFAULT_FILTER_TYPES, 'true');
 define(DEFAULT_FILTER_CATS, 'true');
+define(DEFAULT_SORT_TYPES, 'true');
+define(DEFAULT_SORT_CATS, 'true');
 ?>
 
 <div class="wrap" id="isotope-wrap"> 
@@ -17,7 +19,7 @@ define(DEFAULT_FILTER_CATS, 'true');
 	<form method="post" action="options.php"> 
 	
 		<?php         
-			delete_option('WPIsotopeSettings');		
+			// delete_option('WPIsotopeSettings');		
 		
 			settings_fields( 'WPIsotopeSettings' ); 
 			$options       = get_option( 'WPIsotopeSettings' );
@@ -32,13 +34,9 @@ define(DEFAULT_FILTER_CATS, 'true');
 			if ($options['filter-cat']) { $filter_cats = $options['filter-cat']; } else { $filter_cats = DEFAULT_FILTER_CATS; };			
 			$filter_taxs   = $options['filter-tax'];
 			
-			$sort_types    = $options['sort-type'];
-			$sort_taxs     = $options['sort-tax'];
-			$sort_cats     = $options['sort-cat'];
-			$sort_format   = $options['sort-format'];					
+			if ($options['sort-type']) { $sort_types = $options['sort-type']; } else { $sort_types = DEFAULT_SORT_TYPES; };			
+			if ($options['sort-cats']) { $sort_cats = $options['sort-cats']; } else { $sort_cats = DEFAULT_SORT_CATS; };			
 		?>
-		
-		<?php //print_r($options); ?>
 		
 		<!-- Here we have the title and instructions for the form. Notice that it has been wrapped in a gettext function for internationalization -->
 		<?php screen_icon(); ?>
