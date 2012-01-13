@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: WP Isotope
+Plugin Name: FlowBoxez
 Plugin URI: http://domain.com
-Description: Combines David Desandro's Isotope with WordPress
-Version: 1.2
-Author: Jacob Dubail
-Author URI: http://www.jacobdubail.com
+Description: 
+Version: 1.0
+Author: Chris Burbridge
+Author URI: http://chrisburbridge.com
 
-Copyright 2011  Jacob Dubail  (email : jacob@jacobdubail.com)
+Copyright 2011  Chris Burbridge  (email : christopherburbridge@gmail.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -90,8 +90,6 @@ class WPIsotope {
 		$this->errors = new WP_Error();
 		
 	} // end constructor
-	
-
 		
 	function Activate() {
 	
@@ -117,8 +115,6 @@ class WPIsotope {
 				
 	}
 	
-	
-	
 	function MetaLinks($page) {
 		//Load the custom button API
 		include_once 'screen-meta-links.php';
@@ -136,7 +132,6 @@ class WPIsotope {
 	
 	}
 	
-
 	function AdminPointers() {
 		$pointer_content = '<p>To embed Isotope on a post or page, use this shortcode <code>[wpisotope]</code><br /></p>';
 		$pointer_content .= '<p>To embed Isotope in a theme template, use this code: <code>&lt;?php echo do_shortcode( "[wpisotope]" ); ?&gt;</code></p>';
@@ -157,15 +152,9 @@ class WPIsotope {
 		<?php
 	}
 	
-	
-		
-	
 	function RegisterAdminSettings() {
 		register_setting( 'WPIsotopeSettings', 'WPIsotopeSettings', array( $this, 'SaveSettings' ) );
 	}
-	
-	
-	
 	
 	function SaveSettings($input) {
 					
@@ -223,14 +212,12 @@ class WPIsotope {
 	
 	function Styles() {		
 		wp_enqueue_style( 'WPIsotope_css', plugin_dir_url( __FILE__ ) . '/css/isotope.css' );
-	//	wp_enqueue_style( 'thickbox' );
 		wp_enqueue_style( 'WPIsotope_css', WP_PLUGIN_URL.'/wp-isotope/isotope/css/style.css' );
 	}
 	
 	function Scripts() {
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'WPIsotope_js', plugin_dir_url( __FILE__ ) . '/js/jquery.isotope.min.js', array('jquery'), '1.4.110906' );
-	//	wp_enqueue_script( 'thickbox' );
 	}
 	
 	function GetPost( $id ) {
@@ -242,21 +229,6 @@ class WPIsotope {
 		$content  = wpautop( $post->post_content );
 		$content  = do_shortcode( $content );
 		
-		/**** THIS IS ONLY FOR PAL ****/
-		$buy_button = $this->GetBuyButton($id, 'large');    
-		$content = $buy_button . $content;
-		/**** END PAL-ONLY PORTION ****/	
-		
-		//$comments = $post->comment_count;
-		
-		//$gravatar = get_avatar( $post->post_author, '32' );
-		//$author   = get_the_author_meta( 'display_name', $post->post_author );
-		//$struct   = $wp_rewrite->get_author_permastruct();
-		//$struct   = str_replace('%author%', $author, $struct);
-		//$struct   = get_option('home') . trailingslashit($struct);
-		//$link     = apply_filters('author_link', $struct, $post->post_author, $author );
-		
-		
 		$response = json_encode( array( 'success' => true, 'content' => $content ) );
  
 	    // response output
@@ -265,19 +237,11 @@ class WPIsotope {
 	 
 	    // IMPORTANT: don't forget to "exit"
 	    exit;
-	
 	}
-	
-		
 	
 	function GetOptions() {
 		return get_option( 'WPIsotopeSettings' );
 	}
-	
-	
-	
-	
-	
 	
 	function PostFormats() {
 		if ( current_theme_supports( 'post-formats' ) ) {
@@ -293,11 +257,7 @@ class WPIsotope {
 			return;
 		}
 	}
-	
-	
-	
-	
-	
+		
 	function PostClass() {
 		global $post;
 		
@@ -315,57 +275,20 @@ class WPIsotope {
 	}
 	
 	function ReadMore() {
-		//return "<a href='#TB_inline?height=600&width=420&inlineId=post-" . get_the_ID() . "' class='thickbox read-more'>View as Single Page</a>";
 		return "<a class='iso-read-more' href='" . get_permalink() . "'>View as Single Page</a>";
 	}
-	
 		
 	function ExcerptLength($length) {
 		return 20;
 	}	
                                     
 	function GetBuyButton($id, $position) {
-		
-		/**** THIS IS ONLY FOR PAL ****/
-		$item_price_ary = get_post_meta($id, 'item-price', true);              
-		$item_price = $item_price_ary['text'];
-
-		if ($item_price) {      
-			$buy_button  = "<p class='price'>\${$item_price}</p>\n";  
-			$buy_button .= "<form class='paypal-button-inner' action='https://www.paypal.com/cgi-bin/webscr' method='post'>\n";
-			$buy_button .= "<input name='amount' type='hidden' value='{$item_price}' />\n";
-			$buy_button .= "<input name='currency_code' type='hidden' value='USD' />\n";
-			$buy_button .= "<input name='shipping' type='hidden' value='0.00' />\n";
-			$buy_button .= "<input name='tax' type='hidden' value='0.00' />\n";
-			$buy_button .= "<input name='return' type='hidden' value='" . get_bloginfo('stylesheet_directory') . "/paypal_return.php' />\n";
-			$buy_button .= "<input name='cancel_return' type='hidden' value='" . get_bloginfo('stylesheet_directory') . "/paypal_cancel.php' />\n";
-			$buy_button .= "<input name='notify_url' type='hidden' value='" . get_bloginfo('stylesheet_directory') . "/paypal_notify_url.php' />\n";
-			$buy_button .= "<input name='cmd' type='hidden' value='_xclick' />\n";
-			$buy_button .= "<input name='business' type='hidden' value='faithfulscribe@gmail.com' />\n";
-			$buy_button .= "<input name='item_name' type='hidden' value='" . get_the_title() . "' />\n";
-			$buy_button .= "<input name='no_note' type='hidden' value='no_note' />\n";
-			$buy_button .= "<input name='lc' type='hidden' value='US' />\n";
-			$buy_button .= "<input name='bn' type='hidden' value='PP-BuyNowBF' />\n";
-			$buy_button .= "<p class='button'><input alt='Make payments with PayPal: it's fast, free and secure!' name='submit' src='" . get_bloginfo('stylesheet_directory') . "/images/buy-button.png' type='image' />
-</p>\n";
-			$buy_button .= "<img src='https://www.paypal.com/fr_FR/i/scr/pixel.gif' border='0' alt='' width='1' height='1' />\n";
-			$buy_button .= "</form>\n";  
-		} else {
-			$buy_button = '';
-		}
-		/**** END PAL-ONLY PORTION ****/	
-		
 		return $buy_button;
 	}
 
 	function ExcerptMore($charlength) {
 		$excerpt = get_the_excerpt();      
 		
-		/**** THIS IS ONLY FOR PAL ****/            
-		$buy_button = $this->GetBuyButton(get_the_id(), 'small');    
-		if ($buy_button) $charlength = $charlength = 100;
-		/**** END PAL-ONLY PORTION ****/	
-		                                                        
 		$charlength++;
 		if( strlen( $excerpt ) > $charlength ) {
 			$subex   = substr( $excerpt, 0, $charlength-5 );
@@ -386,13 +309,10 @@ class WPIsotope {
 			return $excerpt . "</div>" . $this->ReadMore();
 		}
 	}
-	
 
 	function Pagination($range = 4) {
 	
 		global $wp_query;
-		
-		//print_r($wp_query);
 		
 		if ( !isset($max_page) ) 
 			$max_page = $wp_query->max_num_pages;
@@ -418,10 +338,7 @@ class WPIsotope {
 		return $pagination;
 		
 	}
-		
-	
-	
-	
+			
 	function RegisterShortcode() {
 		add_shortcode( 'wpisotope', array( $this, 'RunShortcode' ) );
 	}
@@ -438,8 +355,6 @@ class WPIsotope {
 		$ppp           = ( isset( $options[ 'ppp' ] ) )  ? $options[ 'ppp' ]  : get_option('posts_per_page');
 		$rand          = ( isset( $options[ 'rand' ] ) ) ? $options[ 'rand' ] : 'false';
 		
-		//print_r($types);
-		
 		$taxonomies    = get_taxonomies( array( '_builtin' => false ) );
 		$post_formats  = $this->PostFormats();
 		
@@ -450,26 +365,15 @@ class WPIsotope {
 		$filter_format = $options[ 'filter-format' ];
 		
 		$taxonomiez    = get_terms( $filter_taxs );
-							
-		
+									
 		$sort_types    = $options[ 'sort-type'   ];
 		$sort_taxs     = $options[ 'sort-tax'    ];
 		$sort_cats     = $options[ 'sort-cat'    ];
 		$sort_format   = $options[ 'sort-format' ];
-		
-		
+				
 		// setup isotope query
 		$paged = ( get_query_var('page') ) ? get_query_var('page') : 1;
 					
-		/*$loop  = new WP_Query(
-			array(
-				'post_type'      => $types,
-				'orderby'        => $rand,
-				'posts_per_page' => $ppp,
-				'paged'          => get_query_var( 'page' )
-			)
-		);*/
-		
 		query_posts(
 			array(
 				'post_type'      => $types,
@@ -482,10 +386,7 @@ class WPIsotope {
 		
 		if ( have_posts() ) : 
 
-			
-		
-			$types         = ( $types == 'any' ) ? array_values(get_post_types( array( 'public' => true ), 'names', 'and' )) : $types;
-		
+			$types = ( $types == 'any' ) ? array_values(get_post_types( array( 'public' => true ), 'names', 'and' )) : $types;
 		
 			// Setup all the filters
 			if ( $filter_types != 'false' || 
@@ -506,21 +407,9 @@ class WPIsotope {
 				}
 				if ( isset($filter_taxs) && $filter_taxs != 'false' && $filter_taxs != false ) {
 					foreach ( $taxonomiez as $tax ) {
-						//foreach ( ( get_categories( 'taxonomy='.$tax ) ) as $tax_term ) {
-							$output .= '<li><a href="#" data-filter=".taxonomy-' . $tax->slug . '">' . $tax->slug . '</a></li>';
-						//}
-						
-						
+						$output .= '<li><a href="#" data-filter=".taxonomy-' . $tax->slug . '">' . $tax->slug . '</a></li>';
 					}
 				}
-				/*
-				if ( isset($filter_format) && $filter_format != 'false' && $filter_format != false ) {
-				//	$output .= "<li><h1>" . $filter_format . "</h1></li>";
-					foreach ( $post_formats as $format ) {
-						$output .= '<li><a href="#" data-filter=".format-' . $format . '">' . $format . '</a></li>';
-					}
-				}
-				*/
 				$output .= '</ul>';
 			}
 			
@@ -534,15 +423,7 @@ class WPIsotope {
 				if ( $sort_cats   != 'false' ) {
 					$output .= '<li><a href="#category">Category</a></li>';
 				}
-	/*
-				if ( $sort_format != 'false' ) {
-					$output .= '<li><a href="#format">Post Format</a></li>';
-				}
-	*/
-	/*			if ( $sort_taxs   != false ) {
-					$output .= '<li><a href="#taxonomy">Post Format</a></li>';
-				}
-	*/			$output    .= '</ul>';
+				$output    .= '</ul>';
 			}
 			
 			
@@ -581,7 +462,6 @@ class WPIsotope {
 					}
 				}
 				
-	//			$output .= "' data-format='" .    get_post_format()  . "' ";
 				$output .= "' data-post_type='" . get_post_type()    . "' ";
 				$output .= "' data-category='" . $cat[0]->name  . "' ";				
 				$output .= ">"; // end open post div
@@ -599,30 +479,9 @@ class WPIsotope {
 					$output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . "</div>";
 				}
 				
-				//$output .= get_the_post_thumbnail();
-				
 				$output .= "<div class='excerpt'>" . $this->ExcerptMore(90);
 				
-				
 				$output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
-
-
-
-/*				
-				if ( $filter_taxs ) {
-					foreach ( $taxonomies as $tax ) {
-						$terms   = get_the_terms( $post->ID, $tax );
-						
-						if ( $terms ) {						
-							foreach ( $terms as $term ) {
-								$output .= "<p class='taxonomy'>" . $term->slug . '</p>';
-							}
-						}
-					}
-				}
-*/
-
-
 
 				$output .= "<span class='iso-close'></span>";
 				
@@ -710,40 +569,15 @@ class WPIsotope {
 								that.data( 'click', 'on' );
 							}
 							
-							//container.isotope('reLayout');
 				      });
 				      
-				      
-
-						
-						
-						//var newItems = $('<div class='item' /><div class='item' /><div class='item' />');
-						//container.append( newItems ).isotope( 'addItems', newItems );
-												
-
-						
-						
-						
 					});
 				})(jQuery);
 			</script>";
 			
-			
 		endif; 
 		
-		//ob_end_clean();
-		
 		return $output;
-		
 	}
-
 	
 }
-
-
-
-
-
-
-	
-?>
