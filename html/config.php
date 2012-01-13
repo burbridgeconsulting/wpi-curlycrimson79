@@ -8,6 +8,8 @@
 /************** DEFAULTS *****************/
 define(DEFAULT_PPP, 20); 
 define(DEFAULT_RAND, 'menu_order');
+define(DEFAULT_FILTER_TYPES, 'true');
+define(DEFAULT_FILTER_CATS, 'true');
 ?>
 
 <div class="wrap" id="isotope-wrap"> 
@@ -26,10 +28,9 @@ define(DEFAULT_RAND, 'menu_order');
 			if ($options['ppp']) { $ppp = $options['ppp']; } else { $ppp = DEFAULT_PPP; };
 			if ($options['rand']) { $rand = $options['rand']; } else { $rand = DEFAULT_RAND; };
 			
-			$filter_types  = $options['filter-type'];
-			$filter_cats   = $options['filter-cat'];
+			if ($options['filter-type']) { $filter_types = $options['filter-type']; } else { $filter_types = DEFAULT_FILTER_TYPES; };			
+			if ($options['filter-cat']) { $filter_cats = $options['filter-cat']; } else { $filter_cats = DEFAULT_FILTER_CATS; };			
 			$filter_taxs   = $options['filter-tax'];
-			$filter_format = $options['filter-format'];
 			
 			$sort_types    = $options['sort-type'];
 			$sort_taxs     = $options['sort-tax'];
@@ -159,27 +160,6 @@ define(DEFAULT_RAND, 'menu_order');
 						</td>
 						<td></td>
 					</tr>
-					<?php 
-						$post_formats = $this->PostFormats();
-						if ( is_array($post_formats) ) {	
-					?>
-					<tr>
-						<th class="plugin-title" scope="row">
-							<label for="post_types">Post Formats</label>
-						</th>
-						<td>
-							<label for="WPIsotopeSettings[filter-format][yes]">
-								<input id="WPIsotopeSettings[filter-format][yes]" name="WPIsotopeSettings[filter-format]" type="radio" value="true" <?php checked( $filter_format, 'true' ); ?> />
-								Yes
-							</label><br />
-							<label for="WPIsotopeSettings[filter-format][no]">
-								<input id="WPIsotopeSettings[filter-format][no]" name="WPIsotopeSettings[filter-format]" type="radio" value="false" <?php checked( $filter_format, 'false' ); ?> />
-								No
-							</label>
-						</td>
-						<td></td>
-					</tr>
-					<?php } ?>	
 				</tbody>
 			</table>
 		</div>
