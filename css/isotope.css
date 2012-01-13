@@ -1,3 +1,5 @@
+/* @override http://isotope.local/wp-content/plugins/wp-isotope//css/isotope.css?ver=3.3.1 */
+
 #iso-container {
   /* either of these will work for horizontal Isotope layouts */
   height: 80%;
@@ -94,8 +96,20 @@ margin: 0 auto; }
 .isotope-item.big .iso-footer,
 .isotope-item .iso-header      { display: none; }
 
+.isotope-item .iso-footer {
+	position: absolute;
+	bottom: 8px;
+	line-height: 1.2;
+}
 
+.isotope-item .iso-footer a {
+	text-decoration: none;
+}
 
+.isotope-item .iso-footer .avatar {
+	margin-right: 5px;
+	float: left;
+}
 
 #TB_ajaxContent .read-more,
 #TB_ajaxContent .excerpt      { display: none; }

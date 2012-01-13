@@ -295,18 +295,12 @@ class WPIsotope {
 			$exwords = explode( " ",$subex );
 			$excut   = -( strlen( $exwords[ count( $exwords ) - 1 ] ) );
 			if( $excut < 0 ) {
-				/**** THIS IS ONLY FOR PAL ****/ 
-				$subex = $subex . $buy_button;
-				/**** END PAL-ONLY PORTION ****/				
-				return substr( $subex, 0, $excut ) . "</div>" . $this->ReadMore();
+				return substr( $subex, 0, $excut ) . "</div>";
 			} else {    
-				/**** THIS IS ONLY FOR PAL ****/ 
-				$subex = $subex . $buy_button;
-				/**** END PAL-ONLY PORTION ****/				
-				return $subex . "</div>" . $this->ReadMore();
+				return $subex . "</div>";
 			}
 		} else {
-			return $excerpt . "</div>" . $this->ReadMore();
+			return $excerpt . "</div>";
 		}
 	}
 
