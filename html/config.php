@@ -5,7 +5,8 @@
 ?>                      
 
 <?php
-/************** DEFAULTS *****************/
+/************** DEFAULTS *****************/       
+// For default post types (see $types), it's hard-set as an array, see below
 define(DEFAULT_PPP, 20); 
 define(DEFAULT_RAND, 'menu_order');
 define(DEFAULT_FILTER_TYPES, 'true');
@@ -19,12 +20,12 @@ define(DEFAULT_SORT_CATS, 'true');
 	<form method="post" action="options.php"> 
 	
 		<?php         
-			// delete_option('WPIsotopeSettings');		
+			delete_option('WPIsotopeSettings');
 		
 			settings_fields( 'WPIsotopeSettings' ); 
 			$options       = get_option( 'WPIsotopeSettings' );
-		
-			$types         = $options['type'];
+
+			if (empty($options['type'])) { $types = array('post'); } else { $types = $options['type']; }
 			$layout        = $options['layout'];
 			$order         = $options['order'];
 			if ($options['ppp']) { $ppp = $options['ppp']; } else { $ppp = DEFAULT_PPP; };
@@ -182,29 +183,6 @@ define(DEFAULT_SORT_CATS, 'true');
 						</td>
 						<td></td>
 					</tr>					
-					<!--<tr>
-						<th class="plugin-title" scope="row">
-							<label for="taxonomies">Taxonomies</label>
-						</th>
-						<td>
-							<?php //$taxonomies = get_taxonomies( array( '_builtin' => false ) );
-							//		$i = 0; 
-							//	  foreach ( $taxonomies  as $taxonomy ) { ?>
-								    <label for="WPIsotopeSettings[sort-tax][<?php //echo $i; ?>]">
-								    	<input 
-								    		type  ="checkbox" 
-								    		value ="<?php// echo $taxonomy; ?>"
-								    		id    ="WPIsotopeSettings[sort-tax][<?php// echo $i; ?>]" 
-								    		name  ="WPIsotopeSettings[sort-tax][<?php// echo $i; ?>]" 
-								    		<?php// echo checked( $sort_taxs[$i], $taxonomy ) ?> 
-								    		/>
-								    		
-								    	&nbsp;<?php// echo $taxonomy ?>
-								    </label><br />
-							<?php //$i++; } ?>
-						</td>
-						<td></td>
-					</tr>-->
 					<tr>
 						<th class="plugin-title" scope="row">
 							<label for="post_types">Categories</label>
@@ -221,29 +199,6 @@ define(DEFAULT_SORT_CATS, 'true');
 						</td>
 						<td></td>
 					</tr>
-								
-					<?php 
-					//	$post_formats = $this->PostFormats();
-					//	if ( is_array($post_formats) ) {	
-					?><!--
-					<tr>
-						<th class="plugin-title" scope="row">
-							<label for="post_types">Post Formats</label>
-						</th>
-						<td>
-							<label for="WPIsotopeSettings[sort-format][yes]">
-								<input id="WPIsotopeSettings[sort-format][yes]" name="WPIsotopeSettings[sort-format]" type="radio" value="true" <?php// checked( $sort_format, 'true' ); ?> />
-								Yes
-							</label><br />
-							<label for="WPIsotopeSettings[sort-format][no]">
-								<input id="WPIsotopeSettings[sort-format][no]" name="WPIsotopeSettings[sort-format]" type="radio" value="false" <?php// checked( $sort_format, 'false' ); ?> />
-								No
-							</label>
-						</td>
-						<td></td>
-					</tr>-->
-					<?php// } ?>	
-					
 				</tbody>
 			</table>		
 		</div> <!-- end .inside -->
@@ -255,27 +210,4 @@ define(DEFAULT_SORT_CATS, 'true');
 		
 	</form>
 	
-	
-
 </div>
-
-
-
-
-<!--
-<tr>
-	<th scope="row"><label for="WPIsotopeSettings[layout]">Layout Modes</label></th>
-	<td>
-		<select name="WPIsotopeSettings[layout]" id="layout">
-			<option value="cellsbycolumn"     <?php //selected( $layout, 'cellsbycolumn'      ); ?>>cellsByColumn</option>
-			<option value="cellsbyrow"        <?php //selected( $layout, 'cellsbyrow'         ); ?>>cellsByRow</option>
-			<option value="fitcolumns"        <?php //selected( $layout, 'fitcolumns'         ); ?>>fitColumns</option>
-			<option value="fitrows"           <?php //selected( $layout, 'fitrows'            ); ?>>fitRows</option>
-			<option value="masonry"           <?php //selected( $layout, 'masonry'            ); ?>>masonry</option>
-			<option value="masonryhorizontal" <?php //selected( $layout, 'masonryhorizontal'  ); ?>>masonryHorizontal</option>
-			<option value="straightacross"    <?php //selected( $layout, 'straightacross'     ); ?>>straightAcross</option>
-			<option value="straightdown"      <?php //selected( $layout, 'straightdown'       ); ?>>straightDown</option>
-		</select>
-	</td>
-</tr>
--->
