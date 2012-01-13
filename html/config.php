@@ -121,7 +121,7 @@ define(DEFAULT_SORT_CATS, 'true');
 					</tr>
 					<tr>
 						<th class="plugin-title" scope="row">
-							<label for="taxonomies">Taxonomies</label>
+							<label for="taxonomies">Custom Taxonomies</label>
 						</th>
 						<td>
 							<?php $taxonomies = get_taxonomies( array( '_builtin' => false ) );
