@@ -2,31 +2,38 @@
 /***** 
 	This file generates the Plugin Settings page. 
 *****/
+?>                      
+
+<?php
+/************** DEFAULTS *****************/
+define(DEFAULT_PPP, 20);
 ?>
 
 <div class="wrap" id="isotope-wrap"> 
 
 	<form method="post" action="options.php"> 
 	
-		<?php
+		<?php      
+			// delete_option('WPIsotopeSettings');		
+		
 			settings_fields( 'WPIsotopeSettings' ); 
 			$options       = get_option( 'WPIsotopeSettings' );
 		
-			$types         = $options[ 'type'          ];
-			$layout        = $options[ 'layout'        ];
-			$order         = $options[ 'order'         ];
-			$ppp           = $options[ 'ppp'           ];
-			$rand          = $options[ 'rand'          ];
+			$types         = $options['type'];
+			$layout        = $options['layout'];
+			$order         = $options['order'];
+			if ($options['ppp']) { $ppp = $options['ppp']; } else { $ppp = DEFAULT_PPP; };
+			$rand          = $options['rand'];
 			
-			$filter_types  = $options[ 'filter-type'   ];
-			$filter_cats   = $options[ 'filter-cat'    ];
-			$filter_taxs   = $options[ 'filter-tax'    ];
-			$filter_format = $options[ 'filter-format' ];
+			$filter_types  = $options['filter-type'];
+			$filter_cats   = $options['filter-cat'];
+			$filter_taxs   = $options['filter-tax'];
+			$filter_format = $options['filter-format'];
 			
-			$sort_types    = $options[ 'sort-type'     ];
-			$sort_taxs     = $options[ 'sort-tax'      ];
-			$sort_cats     = $options[ 'sort-cat'      ];
-			$sort_format   = $options[ 'sort-format'   ];
+			$sort_types    = $options['sort-type'];
+			$sort_taxs     = $options['sort-tax'];
+			$sort_cats     = $options['sort-cat'];
+			$sort_format   = $options['sort-format'];
 					
 		?>
 		
