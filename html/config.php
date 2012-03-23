@@ -20,7 +20,7 @@ define(DEFAULT_SORT_CATS, 'true');
 	<form method="post" action="options.php"> 
 	
 		<?php         
-			delete_option('WPIsotopeSettings');
+			// delete_option('WPIsotopeSettings');
 		
 			settings_fields( 'WPIsotopeSettings' ); 
 			$options       = get_option( 'WPIsotopeSettings' );
