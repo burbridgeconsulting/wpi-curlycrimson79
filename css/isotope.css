@@ -1,4 +1,7 @@
-/* @override http://isotope.local/wp-content/plugins/wp-isotope//css/isotope.css?ver=3.3.1 */
+/* @override 
+	http://isotope.local/wp-content/plugins/wp-isotope//css/isotope.css?ver=3.3.1
+	http://awakemedia.local/wp-content/plugins/wp-isotope//css/isotope.css?ver=3.3.2
+*/
 
 #iso-container {
 	/* either of these will work for horizontal Isotope layouts */
@@ -218,7 +221,6 @@
 
 .sort,
 .filters {
-	border-bottom: 1px solid #eee;
 	padding-bottom: 3px;
 	margin: 0 0 8px;
 	clear: both;
@@ -263,7 +265,6 @@
 
 .cf {
 	zoom: 1;
-	margin-top: 2px;
 }
 
 .navigation {

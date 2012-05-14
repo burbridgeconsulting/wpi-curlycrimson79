@@ -387,7 +387,7 @@ class WPIsotope {
 			   ( isset($filter_cats) && $filter_cats != 'false' && $filter_cats != false ) || 
 			   ( isset($filter_taxs) && $filter_taxs != 'false' && $filter_taxs != false || 
 			   ( isset($filter_format) && $filter_format != 'false' && $filter_format != false ) ) ) {
-					$output .= '<span class="filters-label">Filters: </span><ul class="filters cf"> <li><a href="#" data-filter="*">show all</a></li>';
+					$output .= '<ul class="filters cf"> <li><a href="#" data-filter="*">show all</a></li>';
 			
 				if ( $filter_types != 'false' ) {			
 					foreach ( $types as $type ) {
