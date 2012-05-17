@@ -387,7 +387,7 @@ class WPIsotope {
 			   ( isset($filter_cats) && $filter_cats != 'false' && $filter_cats != false ) || 
 			   ( isset($filter_taxs) && $filter_taxs != 'false' && $filter_taxs != false || 
 			   ( isset($filter_format) && $filter_format != 'false' && $filter_format != false ) ) ) {
-					$output .= '<ul class="filters cf"> <li><a href="#" data-filter="*">show all</a></li>';
+					$output .= '<ul class="filters cf show-all"> <li><a href="#" data-filter="*">Show All</a></li>';
 			
 				if ( $filter_types != 'false' ) {			
 					foreach ( $types as $type ) {
@@ -399,11 +399,12 @@ class WPIsotope {
 						$output .= '<li><a href="#" data-filter=".category-' . $category->slug . '">' . $category->name . '</a></li>';
 					}
 				}
-				if ( isset($filter_taxs) && $filter_taxs != 'false' && $filter_taxs != false ) {
-					foreach ( $taxonomiez as $tax ) {
-						$output .= '<li><a href="#" data-filter=".taxonomy-' . $tax->slug . '">' . $tax->slug . '</a></li>';
-					}
-				}
+				// *** Filter taxonomies has a bug ***
+				// if ( isset($filter_taxs) && $filter_taxs != 'false' && $filter_taxs != false ) {
+				// 	foreach ( $taxonomiez as $tax ) {
+				// 		$output .= '<li><a href="#" data-filter=".taxonomy-' . $tax->slug . '">' . $tax->slug . '</a></li>';
+				// 	}
+				// }
 				$output .= '</ul>';
 			}
 			
@@ -459,15 +460,17 @@ class WPIsotope {
 				$output .= "' data-post_type='" . get_post_type()    . "' ";
 				$output .= "' data-category='" . $cat[0]->name  . "' ";				
 				$output .= ">"; // end open post div
-				
-				$output .= "<div class='iso-meta iso-header'>";
-				$output .= $avatar;
-				$output .= "<a class='iso-author' href='" . $link . "'>" . $author . "</a> ";
-				$output .= "<span class='iso-date'>" . get_the_date() . "</span> ";
-				$output .= "<a class='iso-permalink' href='" . $perma . "'>Permalink</a>";
-				$output .= "</div>";
-				
-				$output .= "<h2 class='title'>" . get_the_title() . "</h2>";
+
+				// ***  Header stuff that could be in there or not ***
+				// $output .= "<div class='iso-meta iso-header'>";
+				// $output .= $avatar;
+				// $output .= "<a class='iso-author' href='" . $link . "'>" . $author . "</a> ";
+				// $output .= "<span class='iso-date'>" . get_the_date() . "</span> ";
+				// $output .= "<a class='iso-permalink' href='" . $perma . "'>Permalink</a>";
+				// $output .= "</div>";
+
+				// *** Title that could be there or not ***
+				// $output .= "<h2 class='title'>" . get_the_title() . "</h2>";
 				
 				if ( current_theme_supports( 'post-thumbnails' ) ) {
 					$output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . "</div>";
@@ -479,11 +482,12 @@ class WPIsotope {
 
 				$output .= "<span class='iso-close'></span>";
 				
-				$output .= "<div class='iso-meta iso-footer'>";
-				$output .= $avatar;
-				$output .= "<span class='iso-author'>From <a href='" . $link . "' >" . $author . "</a></span> ";
-				$output .= "<div class='iso-comments'>" . $comment . " comments </div>";
-				$output .= "</div>";
+				// *** Footer stuff that might be there or not ***
+				// $output .= "<div class='iso-meta iso-footer'>";
+				// $output .= $avatar;
+				// $output .= "<span class='iso-author'>From <a href='" . $link . "' >" . $author . "</a></span> ";
+				// $output .= "<div class='iso-comments'>" . $comment . " comments </div>";
+				// $output .= "</div>";
 				
 				$output .= "</div>";	// end post div	
 			endwhile; 

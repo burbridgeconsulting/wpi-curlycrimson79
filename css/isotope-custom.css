@@ -15,3 +15,11 @@
 	margin: 0 0 0 12px;
 	width: 100%;
 }
+
+.isotope-item.big {
+	width: 716px;
+}
+
+#iso-container {
+	margin-top: 3px;
+}
