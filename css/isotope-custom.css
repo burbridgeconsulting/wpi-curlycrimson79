@@ -1,0 +1,17 @@
+/* @override http://awakemedia.local/wp-content/plugins/wp-isotope//css/isotope-custom.css?ver=3.3.2 */
+
+.isotope-item {
+	width: 339px;
+	height: 339px;
+	background: #fefefb;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	padding: 8px;
+	margin: 11px;
+}
+
+.filters.cf {
+	margin: 0 0 0 12px;
+	width: 100%;
+}

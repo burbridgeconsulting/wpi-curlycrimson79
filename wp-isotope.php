@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: FlowBoxez
-Plugin URI: http://domain.com
+Plugin Name: WP Isotope
+Plugin URI: http://chrisburbridge.com/wp-isotope
 Description: 
-Version: 1.0
+Version: 0.1
 Author: Chris Burbridge
 Author URI: http://chrisburbridge.com
 
-Copyright 2011  Chris Burbridge  (email : christopherburbridge@gmail.com)
+Copyright 2012  Chris Burbridge  (email : christopherburbridge@gmail.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -212,7 +212,7 @@ class WPIsotope {
 	
 	function Styles() {		
 		wp_enqueue_style( 'WPIsotope_css', plugin_dir_url( __FILE__ ) . '/css/isotope.css' );
-		wp_enqueue_style( 'WPIsotope_css', WP_PLUGIN_URL.'/wp-isotope/isotope/css/style.css' );
+		wp_enqueue_style( 'WPIsotope_css_custom', plugin_dir_url( __FILE__ ) . '/css/isotope-custom.css' );
 	}
 	
 	function Scripts() {
@@ -499,29 +499,31 @@ class WPIsotope {
 					$(function() {
 										
 						var container = $('#iso-container');
-				
-						container.isotope({
-							// options
-							itemSelector   : '.item',
-							layoutMode     : 'masonry',
-							masonry : {
-								columnWidth : 115
-							},
-							getSortData    : {
-								post_type   : function ( elem ) {
-									return elem.data('post_type');
-								},
-								category    : function ( elem ) {
-									return elem.data('category');
-								},
-								format      : function ( elem ) {
-									return elem.data('format');
-								},
-								symbol : function ( elem ) {
-									return elem.find('.symbol').text();
-								}
-							}							
-						});
+
+container.isotope()
+					
+						// container.isotope({
+						// 	// options
+						// 	itemSelector   : '.item',
+						// 	layoutMode     : 'masonry',
+						// 	masonry : {
+						// 		columnWidth : 115
+						// 	},
+						// 	getSortData    : {
+						// 		post_type   : function ( elem ) {
+						// 			return elem.data('post_type');
+						// 		},
+						// 		category    : function ( elem ) {
+						// 			return elem.data('category');
+						// 		},
+						// 		format      : function ( elem ) {
+						// 			return elem.data('format');
+						// 		},
+						// 		symbol : function ( elem ) {
+						// 			return elem.find('.symbol').text();
+						// 		}
+						// 	}							
+						// });
 						
 						
 						$('.filters a').click(function(){
