@@ -484,7 +484,7 @@ class WPIsotope {
 				}                         
 				
 				$output .= "<div class='information'><img src='" . plugin_dir_url( __FILE__ ) . "/i/information.png' class='icon' />";
-				$output .= "<p class='info-content'>" . 'This is a compelling summary of this project, why it was done, and so on.' . "</p>";
+				$output .= "<p class='info-content'>Design Renaissance 2010 site was designed using a series of boxes whose height self-adjusts as content is added. They nest together like a puzzle to allow for the inevitable ”messiness’ of an event blog site being updated on the fly.</p>";
 				$output .="</div>";
 				                                           
 				$cats = preg_replace('/<.*?>/','', get_the_category_list(','));
@@ -583,31 +583,36 @@ class WPIsotope {
 						// 		that.data( 'click', 'on' );
 						// 	}
 						// 	
-						// 				      });       
+						// 				      });  
 						
 						$('.information').qtip({
-							content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> <p>Donec vitae tellus odio. Nam nec dui eget nulla tincidunt tincidunt. Etiam sit amet nibh mi, quis ultrices metus.</p> <p>Proin condimentum, nunc a dapibus adipiscing, mi dui dapibus enim, id convallis nunc dolor non ipsum. Donec eleifend, dolor ac blandit pharetra, tellus lectus porttitor tellus, in hendrerit orci arcu in urna. Donec et tellus erat, nec tristique arcu. Donec nisi leo, blandit eu pellentesque at, lacinia at nisl. Etiam pharetra porta sem, vitae lobortis massa consectetur sit amet. Aenean quis ultricies ipsum. Integer leo nibh, bibendum ut auctor non, aliquam et dui. Curabitur vitae quam vitae quam dapibus sagittis at eget risus. Morbi non lacus odio. Aliquam vestibulum ipsum et leo fermentum in tempus nisi sagittis. Donec accumsan mi eget ante ullamcorper bibendum.</p>',
-							position: {       
-								my: 'bottom left',
-								at: 'bottom right',
-								// adjust: {
-								// 	y: -12,
-								// 	x: 4
-								// }
-							},
+							content: {
+									text: function(api) {
+										// Retrieve content from custom attribute of the $('.selector') elements.
+										return $(this).find('.info-content').html()
+									}
+								},
+							position: {                
+									my: 'bottom left',
+									at: 'top right',
+									target: 'event',
+									adjust: {
+										x: 0,
+										y: -22
+									}
+								},
 							show: {
 								effect: function(offset) {
-									$(this).fadeIn(250)
+									$(this).fadeIn(300)
 								}
 							},
 							hide: {
 								effect: function(offset) {
 									$(this).fadeOut(500)
 								}
-							},
-							width: 2
-						});
-										      
+							}							
+						})
+						
 					});
 				})(jQuery);
 			</script>";
