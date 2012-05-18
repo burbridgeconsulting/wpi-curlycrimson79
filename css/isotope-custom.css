@@ -1,25 +1,67 @@
 /* @override http://awakemedia.local/wp-content/plugins/wp-isotope//css/isotope-custom.css?ver=3.3.2 */
 
 .isotope-item {
-	width: 339px;
-	height: 339px;
+	width: 254px;
+	height: 275px;
 	background: #fefefb;
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
 	border-radius: 12px;
-	padding: 8px;
-	margin: 11px;
+	padding: 12px 12px 6px 12px;
+	margin: 7px;
 }
 
 .filters.cf {
-	margin: 0 0 0 12px;
+	margin: 0 0 0 7px;
 	width: 100%;
 }
 
 .isotope-item.big {
-	width: 716px;
+	width: 547px;
+	height: 100%;
+	min-height: 500px;
 }
 
 #iso-container {
 	margin-top: 3px;
+}
+
+.big .iso-thumb {
+	display: none;
+}
+
+.isotope-item h2 {
+	font-size: 13px;
+	color: #333;
+	font-weight: normal;
+	position: absolute;
+	bottom: 25px;
+}
+
+.isotope-item.big h2 {
+	font-size: 14px;
+	color: #444;
+	font-weight: bold;
+	position: absolute;
+	bottom: 29px;
+}
+
+.isotope-item .categories {
+	position: absolute;
+	bottom: -7px;
+	color: #222;
+	text-transform: uppercase;
+	font-size: 11px;
+}
+
+.isotope .information .icon{
+	position: absolute;
+	right: 6px;
+	bottom: 7px;
+	width: 24px;
+	height: 24px;
+}
+
+.isotope .info-content {
+	display: none;
 }

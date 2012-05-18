@@ -83,9 +83,10 @@ class WPIsotope {
 		add_filter("plugin_action_links_WPIsotope/WPIsotope.php", array($this, 'InsertSettingsLink')); 
 		
 		//add_action('admin_notices', array( $this, 'my_admin_notice' ));
-		
-		add_action('wp_ajax_nopriv_isoGetPost', array( $this, 'GetPost' ) );
-		add_action('wp_ajax_isoGetPost', array( $this, 'GetPost' ) );
+
+		// *** Should add this back when wanted ***
+		// add_action('wp_ajax_nopriv_isoGetPost', array( $this, 'GetPost' ) );
+		// add_action('wp_ajax_isoGetPost', array( $this, 'GetPost' ) );
 
 		$this->errors = new WP_Error();
 		
@@ -211,13 +212,15 @@ class WPIsotope {
 	
 	
 	function Styles() {		
-		wp_enqueue_style( 'WPIsotope_css', plugin_dir_url( __FILE__ ) . '/css/isotope.css' );
-		wp_enqueue_style( 'WPIsotope_css_custom', plugin_dir_url( __FILE__ ) . '/css/isotope-custom.css' );
+		wp_enqueue_style( 'WPIsotope_css', plugin_dir_url( __FILE__ ) . 'css/isotope.css' );
+		wp_enqueue_style( 'WPIsotope_css_custom', plugin_dir_url( __FILE__ ) . 'css/isotope-custom.css' );
+		wp_enqueue_style( 'qtip_css', plugin_dir_url( __FILE__ ) . 'qtip/jquery.qtip.min.css' );
 	}
 	
 	function Scripts() {
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'WPIsotope_js', plugin_dir_url( __FILE__ ) . '/js/jquery.isotope.min.js', array('jquery'), '1.4.110906' );
+		wp_enqueue_script( 'qTip', plugin_dir_url( __FILE__ ) . 'qtip/jquery.qtip.min.js', array('jquery') );
+		wp_enqueue_script( 'WPIsotope_js', plugin_dir_url( __FILE__ ) . 'js/jquery.isotope.min.js', array('jquery'), '1.4.110906' );
 	}
 	
 	function GetPost( $id ) {
@@ -396,7 +399,9 @@ class WPIsotope {
 				}			
 				if ( isset($filter_cats) && $filter_cats != 'false' && $filter_cats != false ) {
 					foreach ( ( get_categories() ) as $category ) {
-						$output .= '<li><a href="#" data-filter=".category-' . $category->slug . '">' . $category->name . '</a></li>';
+						if ($category->name != 'Uncategorized') {
+							$output .= '<li><a href="#" data-filter=".category-' . $category->slug . '">' . $category->name . '</a></li>';
+						}
 					}
 				}
 				// *** Filter taxonomies has a bug ***
@@ -472,13 +477,24 @@ class WPIsotope {
 				// *** Title that could be there or not ***
 				// $output .= "<h2 class='title'>" . get_the_title() . "</h2>";
 				
-				if ( current_theme_supports( 'post-thumbnails' ) ) {
-					$output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . "</div>";
-				}
+				if ( current_theme_supports( 'post-thumbnails' ) ) {       
+					// *** Should probably change back ***
+					// $output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . "</div>";
+					$output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'medium' ) . "</div>";
+				}                         
 				
-				$output .= "<div class='excerpt'>" . $this->ExcerptMore(90);
+				$output .= "<div class='information'><img src='" . plugin_dir_url( __FILE__ ) . "/i/information.png' class='icon' />";
+				$output .= "<p class='info-content'>" . 'This is a compelling summary of this project, why it was done, and so on.' . "</p>";
+				$output .="</div>";
+				                                           
+				$cats = preg_replace('/<.*?>/','', get_the_category_list(','));
+				$output .= "<p class='categories'>" . $cats . "</p>";
+				$output .= "<h2 class='title'>" . get_the_title() . "</h2>";
+				                                                               
+				// *** Here we will definitely want to change back ... ***
+				// $output .= "<div class='excerpt'>" . $this->ExcerptMore(90); 
 				
-				$output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
+				// $output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
 
 				$output .= "<span class='iso-close'></span>";
 				
@@ -504,30 +520,28 @@ class WPIsotope {
 										
 						var container = $('#iso-container');
 
-container.isotope()
-					
-						// container.isotope({
-						// 	// options
-						// 	itemSelector   : '.item',
-						// 	layoutMode     : 'masonry',
-						// 	masonry : {
-						// 		columnWidth : 115
-						// 	},
-						// 	getSortData    : {
-						// 		post_type   : function ( elem ) {
-						// 			return elem.data('post_type');
-						// 		},
-						// 		category    : function ( elem ) {
-						// 			return elem.data('category');
-						// 		},
-						// 		format      : function ( elem ) {
-						// 			return elem.data('format');
-						// 		},
-						// 		symbol : function ( elem ) {
-						// 			return elem.find('.symbol').text();
-						// 		}
-						// 	}							
-						// });
+						container.isotope({
+							// options
+							itemSelector   : '.item',
+							layoutMode     : 'masonry',
+							masonry : {
+								// columnWidth : 254
+							},
+							getSortData    : {
+								post_type   : function ( elem ) {
+									return elem.data('post_type');
+								},
+								category    : function ( elem ) {
+									return elem.data('category');
+								},
+								format      : function ( elem ) {
+									return elem.data('format');
+								},
+								symbol : function ( elem ) {
+									return elem.find('.symbol').text();
+								}
+							}							
+						});
 						
 						
 						$('.filters a').click(function(){
@@ -542,35 +556,58 @@ container.isotope()
 							return false;
 						});
 						
-						$('.isotope-item').on( 'click', function() {
-							
-							var that    = $(this);
-							var id      = that.data('id');
-							var content = that.find('.content');
-							
-							$('.isotope-item').not(that).removeClass('big');
-							
-							if ( !that.hasClass('big') && that.data( 'click' ) !== 'off' ) {
-								
-								that.data( 'click', 'off' ).append('<div id=loading style=\"background: url(" . plugin_dir_url( __FILE__ ) . "i/loading.gif) no-repeat 50% 50% transparent;\" />');
-								
-								$.post( '/wp-admin/admin-ajax.php', { action: 'isoGetPost', id: id }, function(data) {
-									$('#loading').remove();
-									content.html(data.content);
-																		
-									that.addClass('big');
-									container.isotope('reLayout');
-									that.data( 'click', 'on' );
-								});
-								
-							} else {
-								that.removeClass('big');
-								container.isotope('reLayout');
-								that.data( 'click', 'on' );
-							}
-							
-				      });
-				      
+						// $('.isotope-item').on( 'click', function() {
+						// 	
+						// 	var that    = $(this);
+						// 	var id      = that.data('id');
+						// 	var content = that.find('.content');
+						// 	
+						// 	$('.isotope-item').not(that).removeClass('big');
+						// 	
+						// 	if ( !that.hasClass('big') && that.data( 'click' ) !== 'off' ) {
+						// 		
+						// 		that.data( 'click', 'off' ).append('<div id=loading style=\"background: url(" . plugin_dir_url( __FILE__ ) . "i/loading.gif) no-repeat 50% 50% transparent;\" />');
+						// 		
+						// 		$.post( '/wp-admin/admin-ajax.php', { action: 'isoGetPost', id: id }, function(data) {
+						// 			$('#loading').remove();
+						// 			content.html(data.content);
+						// 												
+						// 			that.addClass('big');
+						// 			container.isotope('reLayout');
+						// 			that.data( 'click', 'on' );
+						// 		});
+						// 		
+						// 	} else {
+						// 		that.removeClass('big');
+						// 		container.isotope('reLayout');
+						// 		that.data( 'click', 'on' );
+						// 	}
+						// 	
+						// 				      });       
+						
+						$('.information').qtip({
+							content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> <p>Donec vitae tellus odio. Nam nec dui eget nulla tincidunt tincidunt. Etiam sit amet nibh mi, quis ultrices metus.</p> <p>Proin condimentum, nunc a dapibus adipiscing, mi dui dapibus enim, id convallis nunc dolor non ipsum. Donec eleifend, dolor ac blandit pharetra, tellus lectus porttitor tellus, in hendrerit orci arcu in urna. Donec et tellus erat, nec tristique arcu. Donec nisi leo, blandit eu pellentesque at, lacinia at nisl. Etiam pharetra porta sem, vitae lobortis massa consectetur sit amet. Aenean quis ultricies ipsum. Integer leo nibh, bibendum ut auctor non, aliquam et dui. Curabitur vitae quam vitae quam dapibus sagittis at eget risus. Morbi non lacus odio. Aliquam vestibulum ipsum et leo fermentum in tempus nisi sagittis. Donec accumsan mi eget ante ullamcorper bibendum.</p>',
+							position: {       
+								my: 'bottom left',
+								at: 'bottom right',
+								// adjust: {
+								// 	y: -12,
+								// 	x: 4
+								// }
+							},
+							show: {
+								effect: function(offset) {
+									$(this).fadeIn(250)
+								}
+							},
+							hide: {
+								effect: function(offset) {
+									$(this).fadeOut(500)
+								}
+							},
+							width: 2
+						});
+										      
 					});
 				})(jQuery);
 			</script>";
