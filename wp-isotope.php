@@ -229,9 +229,12 @@ class WPIsotope {
 		
 		$content  = wpautop( $post->post_content );
 		$content  = do_shortcode( $content );
-		
 		$response = json_encode( array( 'success' => true, 'content' => $content ) );
- 
+
+// $handle = fopen("/Users/chrisburbridge/Sites/awakemedia/wp-content/plugins/wp-isotope/log.txt", "w");
+// fwrite($handle, $response);
+// fclose($handle);
+
 	    // response output
 	    header( "Content-Type: application/json" );
 	    echo $response;
@@ -496,7 +499,7 @@ class WPIsotope {
 				// *** Here we will definitely want to change back ... ***
 				// $output .= "<div class='excerpt'>" . $this->ExcerptMore(90); 
 				
-				// $output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
+				$output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
 
 				$output .= "<span class='iso-close'><img src='" . plugin_dir_url( __FILE__ ) . "i/close.png'/></span>";
 				
