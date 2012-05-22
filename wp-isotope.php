@@ -85,8 +85,8 @@ class WPIsotope {
 		//add_action('admin_notices', array( $this, 'my_admin_notice' ));
 
 		// *** Should add this back when wanted ***
-		// add_action('wp_ajax_nopriv_isoGetPost', array( $this, 'GetPost' ) );
-		// add_action('wp_ajax_isoGetPost', array( $this, 'GetPost' ) );
+		add_action('wp_ajax_nopriv_isoGetPost', array( $this, 'GetPost' ) );
+		add_action('wp_ajax_isoGetPost', array( $this, 'GetPost' ) );
 
 		$this->errors = new WP_Error();
 		
@@ -500,7 +500,7 @@ class WPIsotope {
 				
 				// $output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
 
-				$output .= "<span class='iso-close'></span>";
+				$output .= "<span class='iso-close'><img src='" . plugin_dir_url( __FILE__ ) . "i/close.png'/></span>";
 				
 				// *** Footer stuff that might be there or not ***
 				// $output .= "<div class='iso-meta iso-footer'>";
