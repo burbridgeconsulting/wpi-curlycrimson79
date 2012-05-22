@@ -529,7 +529,7 @@ class WPIsotope {
 							itemSelector   : '.item',
 							layoutMode     : 'masonry',
 							masonry : {
-								// columnWidth : 254
+								columnWidth : 275
 							},
 							getSortData    : {
 								post_type   : function ( elem ) {
