@@ -214,12 +214,10 @@ class WPIsotope {
 	function Styles() {		
 		wp_enqueue_style( 'WPIsotope_css', plugin_dir_url( __FILE__ ) . 'css/isotope.css' );
 		wp_enqueue_style( 'WPIsotope_css_custom', plugin_dir_url( __FILE__ ) . 'css/isotope-custom.css' );
-		wp_enqueue_style( 'qtip_css', plugin_dir_url( __FILE__ ) . 'qtip/jquery.qtip.min.css' );
 	}
 	
 	function Scripts() {
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'qTip', plugin_dir_url( __FILE__ ) . 'qtip/jquery.qtip.min.js', array('jquery') );
 		wp_enqueue_script( 'WPIsotope_js', plugin_dir_url( __FILE__ ) . 'js/jquery.isotope.min.js', array('jquery'), '1.4.110906' );
 	}
 	
@@ -588,34 +586,6 @@ class WPIsotope {
 							}
 							
 										      });  
-						
-						$('.information').qtip({
-							content: {
-									text: function(api) {
-										// Retrieve content from custom attribute of the $('.selector') elements.
-										return $(this).find('.info-content').html()
-									}
-								},
-							position: {                
-									my: 'bottom left',
-									at: 'top right',
-									target: 'event',
-									adjust: {
-										x: 0,
-										y: -22
-									}
-								},
-							show: {
-								effect: function(offset) {
-									$(this).fadeIn(300)
-								}
-							},
-							hide: {
-								effect: function(offset) {
-									$(this).fadeOut(500)
-								}
-							}							
-						})
 						
 					});
 				})(jQuery);
