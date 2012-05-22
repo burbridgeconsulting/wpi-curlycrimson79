@@ -487,9 +487,9 @@ class WPIsotope {
 					$output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'medium' ) . "</div>";
 				}                         
 				
-				$output .= "<div class='information'><img src='" . plugin_dir_url( __FILE__ ) . "/i/information.png' class='icon' />";
-				$output .= "<p class='info-content'>Design Renaissance 2010 site was designed using a series of boxes whose height self-adjusts as content is added. They nest together like a puzzle to allow for the inevitable ”messiness’ of an event blog site being updated on the fly.</p>";
-				$output .="</div>";
+				// $output .= "<div class='information'><img src='" . plugin_dir_url( __FILE__ ) . "/i/information.png' class='icon' />";
+				// $output .= "<p class='info-content'>Design Renaissance 2010 site was designed using a series of boxes whose height self-adjusts as content is added. They nest together like a puzzle to allow for the inevitable ”messiness’ of an event blog site being updated on the fly.</p>";
+				// $output .="</div>";
 				                                           
 				$cats = preg_replace('/<.*?>/','', get_the_category_list(','));
 				$output .= "<p class='categories'>" . $cats . "</p>";
@@ -560,34 +560,34 @@ class WPIsotope {
 							return false;
 						});
 						
-						// $('.isotope-item').on( 'click', function() {
-						// 	
-						// 	var that    = $(this);
-						// 	var id      = that.data('id');
-						// 	var content = that.find('.content');
-						// 	
-						// 	$('.isotope-item').not(that).removeClass('big');
-						// 	
-						// 	if ( !that.hasClass('big') && that.data( 'click' ) !== 'off' ) {
-						// 		
-						// 		that.data( 'click', 'off' ).append('<div id=loading style=\"background: url(" . plugin_dir_url( __FILE__ ) . "i/loading.gif) no-repeat 50% 50% transparent;\" />');
-						// 		
-						// 		$.post( '/wp-admin/admin-ajax.php', { action: 'isoGetPost', id: id }, function(data) {
-						// 			$('#loading').remove();
-						// 			content.html(data.content);
-						// 												
-						// 			that.addClass('big');
-						// 			container.isotope('reLayout');
-						// 			that.data( 'click', 'on' );
-						// 		});
-						// 		
-						// 	} else {
-						// 		that.removeClass('big');
-						// 		container.isotope('reLayout');
-						// 		that.data( 'click', 'on' );
-						// 	}
-						// 	
-						// 				      });  
+						$('.isotope-item').on( 'click', function() {
+							
+							var that    = $(this);
+							var id      = that.data('id');
+							var content = that.find('.content');
+							
+							$('.isotope-item').not(that).removeClass('big');
+							
+							if ( !that.hasClass('big') && that.data( 'click' ) !== 'off' ) {
+								
+								that.data( 'click', 'off' ).append('<div id=loading style=\"background: url(" . plugin_dir_url( __FILE__ ) . "i/loading.gif) no-repeat 50% 50% transparent;\" />');
+								
+								$.post( '/wp-admin/admin-ajax.php', { action: 'isoGetPost', id: id }, function(data) {
+									$('#loading').remove();
+									content.html(data.content);
+																		
+									that.addClass('big');
+									container.isotope('reLayout');
+									that.data( 'click', 'on' );
+								});
+								
+							} else {
+								that.removeClass('big');
+								container.isotope('reLayout');
+								that.data( 'click', 'on' );
+							}
+							
+										      });  
 						
 						$('.information').qtip({
 							content: {
