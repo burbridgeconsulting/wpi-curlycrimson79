@@ -384,13 +384,17 @@ class WPIsotope {
 		if ( have_posts() ) : 
 
 			$types = ( $types == 'any' ) ? array_values(get_post_types( array( 'public' => true ), 'names', 'and' )) : $types;
+			
+			// *** Here, the following should REALLY be an option: ***
+			$filter_prepend_text = 'Browse by Category: ';
 		
 			// Setup all the filters
 			if ( $filter_types != 'false' || 
 			   ( isset($filter_cats) && $filter_cats != 'false' && $filter_cats != false ) || 
 			   ( isset($filter_taxs) && $filter_taxs != 'false' && $filter_taxs != false || 
 			   ( isset($filter_format) && $filter_format != 'false' && $filter_format != false ) ) ) {
-					$output .= '<ul class="filters cf show-all"> <li><a href="#" data-filter="*">Show All</a></li>';
+					$output .= '<ul class="filters cf show-all"><li class="filter-prepend">' . $filter_prepend_text . '</li>' .
+						' <li><a href="#" data-filter="*">Show All</a></li>';
 			
 				if ( $filter_types != 'false' ) {			
 					foreach ( $types as $type ) {
