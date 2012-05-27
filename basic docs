@@ -1,0 +1,6 @@
+Shortcode is 
+	wpisotope
+	
+Options for shortcode
+	type = Custom post type. Defaults to whatever was set in main thing.
+	tax = Taxonomy to filter on. 
