@@ -507,7 +507,7 @@ class WPIsotope {
 					// require_once('do_dump.php');
 					// do_dump($taxonomy_objects);
 					foreach ($taxonomy_objects as $to) {
-						$output .= "{$to->name }";
+						$output .= "{$to->name} ";
 					}
 					$output .= "</p>";
 				}
