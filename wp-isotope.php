@@ -493,10 +493,25 @@ class WPIsotope {
 				
 				// $output .= "<div class='information'><img src='" . plugin_dir_url( __FILE__ ) . "/i/information.png' class='icon' />";
 				// $output .= "<p class='info-content'>Design Renaissance 2010 site was designed using a series of boxes whose height self-adjusts as content is added. They nest together like a puzzle to allow for the inevitable ”messiness’ of an event blog site being updated on the fly.</p>";
-				// $output .="</div>";
-				                                           
-				$cats = preg_replace('/<.*?>/','', get_the_category_list(','));
-				$output .= "<p class='categories'>" . $cats . "</p>";
+				// $output .="</div>";    
+				
+				/**
+				 * @param taxonomy_labels 
+				 * Provide a valid taxonomy for this object type.
+				 */
+				
+				if ($attr['taxonomy_labels']) {
+					$tax_type = $attr['taxonomy_labels'];
+					$taxonomy_objects = wp_get_post_terms( get_the_id(), $tax_type );
+					$output .= "<p class='categories'>";
+					// require_once('do_dump.php');
+					// do_dump($taxonomy_objects);
+					foreach ($taxonomy_objects as $to) {
+						$output .= "{$to->name }";
+					}
+					$output .= "</p>";
+				}
+				
 				$output .= "<h2 class='title'>" . get_the_title() . "</h2>";
 				                                                               
 				// *** Here we will definitely want to change back ... ***
