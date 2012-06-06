@@ -1,6 +1,7 @@
 /* @override 
 	http://awakemedia.local/wp-content/plugins/wp-isotope//css/isotope-custom.css?ver=3.3.2
 	http://awakemedia.local/wp-content/plugins/wp-isotope/css/isotope-custom.css?ver=3.3.2
+	http://awakemedia.com/wp-content/plugins/wp-isotope/css/isotope-custom.css?ver=3.3.2
 */
 
 .isotope-item {
@@ -105,7 +106,3 @@
 	-webkit-transition: all .1s linear;
 }
 
-.iso-thumb {
-	height: 180px;
-	overflow: hidden;
-}
