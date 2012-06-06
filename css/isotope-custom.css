@@ -104,3 +104,8 @@
 	color: rgba(255,255,255,.81) !important;
 	-webkit-transition: all .1s linear;
 }
+
+.iso-thumb {
+	height: 180px;
+	overflow: hidden;
+}
