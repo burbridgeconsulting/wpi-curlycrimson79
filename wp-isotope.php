@@ -213,7 +213,7 @@ class WPIsotope {
 	
 	function Styles() {		
 		wp_enqueue_style( 'WPIsotope_css', plugin_dir_url( __FILE__ ) . 'css/isotope.css' );
-		wp_enqueue_style( 'WPIsotope_css_custom', plugin_dir_url( __FILE__ ) . 'css/isotope-custom.css' );
+		// wp_enqueue_style( 'WPIsotope_css_custom', plugin_dir_url( __FILE__ ) . 'css/isotope-custom.css' );
 	}
 	
 	function Scripts() {
