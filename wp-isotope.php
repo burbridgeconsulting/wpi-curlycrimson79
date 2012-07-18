@@ -213,7 +213,7 @@ class WPIsotope {
 	
 	function Styles() {		
 		wp_enqueue_style( 'WPIsotope_css', plugin_dir_url( __FILE__ ) . 'css/isotope.css' );
-		wp_enqueue_style( 'WPIsotope_css_custom', plugin_dir_url( __FILE__ ) . 'css/isotope-custom.css' );
+		// wp_enqueue_style( 'WPIsotope_css_custom', plugin_dir_url( __FILE__ ) . 'css/isotope-custom.css' );
 	}
 	
 	function Scripts() {
@@ -417,6 +417,10 @@ class WPIsotope {
 					// 		$output .= '<li><a href="#" data-filter=".taxonomy-' . $tax->slug . '">' . $tax->slug . '</a></li>';
 					// 	}
 					// }
+					
+					// **** ONLY for Lakshmi! ****
+					$output .= '<li class="search">' . get_search_form(false) . '<span class="icon"></span></li>';
+					
 					$output .= '</ul>';
 				}
 			}  
@@ -511,8 +515,12 @@ class WPIsotope {
 					}
 					$output .= "</p>";
 				}
-				
+
 				$output .= "<h2 class='title'>" . get_the_title() . "</h2>";
+
+				// *** For Lakshmi only! ***
+				$output .= "<h2 class='client'>Client: " . get_field('pfo_client') . "</h2>";
+				$output .= "<h2 class='author'>Created By: " . get_field('pfo_author')->post_title . "</h2>";
 				                                                               
 				// *** Here we will definitely want to change back ... ***
 				// $output .= "<div class='excerpt'>" . $this->ExcerptMore(90); 
