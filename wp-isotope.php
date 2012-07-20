@@ -342,7 +342,7 @@ class WPIsotope {
 	}
 	
 	function RunShortcode( $attr ) {
-		
+
 		global $wp_query;
 		$page_id       = $wp_query->get_queried_object_id();
 		$options       = $this->GetOptions();
@@ -479,19 +479,6 @@ class WPIsotope {
 				$output .= "' data-category='" . $cat[0]->name  . "' ";				
 				$output .= ">"; // end open post div
 
-				// ***  Header stuff that could be in there or not ***
-				// $output .= "<div class='iso-meta iso-header'>";
-				// $output .= $avatar;
-				// $output .= "<a class='iso-author' href='" . $link . "'>" . $author . "</a> ";
-				// $output .= "<span class='iso-date'>" . get_the_date() . "</span> ";
-				// $output .= "<a class='iso-permalink' href='" . $perma . "'>Permalink</a>";
-				// $output .= "</div>";
-
-				// *** Title that could be there or not ***
-				// $output .= "<h2 class='title'>" . get_the_title() . "</h2>";
-				
-				// $output .= "<p>$post_type</p>";
-				
 				// *** More Lakshmi stuff ***
 				if ($post_type == 'portfolio') {
 
@@ -525,15 +512,27 @@ class WPIsotope {
 					}                         
 				}
 				
-				// $output .= "<div class='information'><img src='" . plugin_dir_url( __FILE__ ) . "/i/information.png' class='icon' />";
-				// $output .= "<p class='info-content'>Design Renaissance 2010 site was designed using a series of boxes whose height self-adjusts as content is added. They nest together like a puzzle to allow for the inevitable ”messiness’ of an event blog site being updated on the fly.</p>";
-				// $output .="</div>";    
-				
 				/**
 				 * @param taxonomy_labels 
 				 * Provide a valid taxonomy for this object type.
 				 */
 				
+				$output .= "<div class='title-wrap'>";
+				
+				$output .= "<h2 class='title'>" . get_the_title() . "</h2>";
+
+				// *** For Lakshmi only! ***
+				if ($post_type == 'portfolio') {
+					if (get_field('pfo_client')) {
+						$output .= "<h2 class='client'>Client: " . get_field('pfo_client') . "</h2>";
+					}
+					if (get_field('pfo_author')->post_title) {
+						$output .= "<h2 class='author'>Created By: " . get_field('pfo_author')->post_title . "</h2>";
+					}
+				} else if ($post_type == 'coalition') {
+					
+				}
+
 				if ($attr['taxonomy_labels']) {
 					$tax_type = $attr['taxonomy_labels'];
 					$taxonomy_objects = wp_get_post_terms( get_the_id(), $tax_type );
@@ -546,15 +545,7 @@ class WPIsotope {
 					$output .= "</p>";
 				}
 
-				$output .= "<h2 class='title'>" . get_the_title() . "</h2>";
-
-				// *** For Lakshmi only! ***
-				if ($post_type == 'portfolio') {
-					$output .= "<h2 class='client'>Client: " . get_field('pfo_client') . "</h2>";
-					$output .= "<h2 class='author'>Created By: " . get_field('pfo_author')->post_title . "</h2>";
-				} else if ($post_type == 'coalition') {
-					
-				}
+				$output .= "</div> <!-- title wrap -->";
 				                                                               
 				// *** Here we will definitely want to change back ... ***
 				// $output .= "<div class='excerpt'>" . $this->ExcerptMore(90); 
