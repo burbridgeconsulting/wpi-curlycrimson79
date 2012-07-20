@@ -494,6 +494,12 @@ class WPIsotope {
 				
 				// *** More Lakshmi stuff ***
 				if ($post_type == 'portfolio') {
+
+					if ( current_theme_supports( 'post-thumbnails' ) ) {       
+						// *** Should probably change back ***
+						// $output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . "</div>";
+						$output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'medium' ) . "</div>";
+					}                         
 					
 				} else if ($post_type == 'coalition') {
 					global $post;
