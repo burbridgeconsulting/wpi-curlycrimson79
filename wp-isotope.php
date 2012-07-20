@@ -336,32 +336,14 @@ class WPIsotope {
 		return $pagination;
 		
 	}
-	
+			
 	function RegisterShortcode() {
 		add_shortcode( 'wpisotope', array( $this, 'RunShortcode' ) );
 	}
 	
 	function RunShortcode( $attr ) {
-		
+
 		global $wp_query;
-
-		function get_gallery_images( $post_id, $size ) {
-			$images =& get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post_id );
-			$counter=0;
-			$result = "<div class='images-wrapper-{$size}'>";
-			$result .= '<div class="images">';
-			foreach( (array) $images as $attachment_id => $attachment )
-			{
-			   $counter++;
-				 $image = wp_get_attachment_image_src( $attachment_id, $size );
-				 $result .= "<img src='{$image[0]}' />";
-			}
-			$result .= '</div>';
-			$result .= '<div class="pager"></div>';
-			$result .= '</div>';
-			return $result;
-		}
-
 		$page_id       = $wp_query->get_queried_object_id();
 		$options       = $this->GetOptions();
 		$output        = '';
@@ -496,9 +478,30 @@ class WPIsotope {
 				$output .= ">"; // end open post div
 
 				// *** More Lakshmi stuff ***
-				if ($post_type == 'coalition' or $post_type == 'portfolio') {
+				if ($post_type == 'portfolio') {
+
+					if ( current_theme_supports( 'post-thumbnails' ) ) {       
+						// *** Should probably change back ***
+						// $output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . "</div>";
+						$output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'medium' ) . "</div>";
+					}                         
+					
+				} else if ($post_type == 'coalition') {
 					global $post;
-					$output .= get_gallery_images($post->ID, 'coalition-thumb');
+					$images =& get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post->ID );
+					$counter=0;
+					$output .= '<div class="images-wrapper">';
+					$output .= '<div class="images">';
+					foreach( (array) $images as $attachment_id => $attachment )
+					{
+					   $counter++;
+						 $image = wp_get_attachment_image_src( $attachment_id, 'medium' );
+						 $output .= "<img src='{$image[0]}' />";
+					}
+					$output .= '</div>';
+					$output .= '<div class="pager"></div>';
+					$output .= '</div>';
+					
 				} else {
 					if ( current_theme_supports( 'post-thumbnails' ) ) {       
 						// *** Should probably change back ***
