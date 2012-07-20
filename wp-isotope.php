@@ -609,13 +609,15 @@ class WPIsotope {
 							return false;
 						});
 						
-						$('.sort a').click(function(){
+						$('.sort a').click(function(event){
+							// event.stopPropagation()
 							var sortName = $(this).attr('href').slice(1);
 							container.isotope({ sortBy : sortName });
 							return false;
 						});
 						
-						$('.isotope-item').on( 'click', function() {
+						$('.isotope-item').on( 'click', function(event) {
+							// event.stopPropagation()
 							
 							var that    = $(this);
 							var id      = that.data('id');
