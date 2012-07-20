@@ -384,7 +384,8 @@ class WPIsotope {
 		
 		if ( have_posts() ) : 
 
-			$types = ( $types == 'any' ) ? array_values(get_post_types( array( 'public' => true ), 'names', 'and' )) : $types;
+			$types = ( $types == 'any' ) ? array_values(get_post_types( array( 'public' => true ), 'names', 'and' )) : 		
+			$post_type = $types[0];
 			
 			// *** Here, the following should REALLY be an option: ***
 			$filter_prepend_text = 'Browse by Category: ';
@@ -489,11 +490,34 @@ class WPIsotope {
 				// *** Title that could be there or not ***
 				// $output .= "<h2 class='title'>" . get_the_title() . "</h2>";
 				
-				if ( current_theme_supports( 'post-thumbnails' ) ) {       
-					// *** Should probably change back ***
-					// $output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . "</div>";
-					$output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'medium' ) . "</div>";
-				}                         
+				// $output .= "<p>$post_type</p>";
+				
+				// *** More Lakshmi stuff ***
+				if ($post_type == 'portfolio') {
+					
+				} else if ($post_type == 'coalition') {
+					global $post;
+					$images =& get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post->ID );
+					$counter=0;
+					$output .= '<div class="images-wrapper">';
+					$output .= '<div class="images">';
+					foreach( (array) $images as $attachment_id => $attachment )
+					{
+					   $counter++;
+						 $image = wp_get_attachment_image_src( $attachment_id, 'medium' );
+						 $output .= "<img src='{$image[0]}' />";
+					}
+					$output .= '</div>';
+					$output .= '<div class="pager"></div>';
+					$output .= '</div>';
+					
+				} else {
+					if ( current_theme_supports( 'post-thumbnails' ) ) {       
+						// *** Should probably change back ***
+						// $output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . "</div>";
+						$output .= "<div class='iso-thumb'>" . get_the_post_thumbnail( $post->ID, 'medium' ) . "</div>";
+					}                         
+				}
 				
 				// $output .= "<div class='information'><img src='" . plugin_dir_url( __FILE__ ) . "/i/information.png' class='icon' />";
 				// $output .= "<p class='info-content'>Design Renaissance 2010 site was designed using a series of boxes whose height self-adjusts as content is added. They nest together like a puzzle to allow for the inevitable ”messiness’ of an event blog site being updated on the fly.</p>";
@@ -519,8 +543,12 @@ class WPIsotope {
 				$output .= "<h2 class='title'>" . get_the_title() . "</h2>";
 
 				// *** For Lakshmi only! ***
-				$output .= "<h2 class='client'>Client: " . get_field('pfo_client') . "</h2>";
-				$output .= "<h2 class='author'>Created By: " . get_field('pfo_author')->post_title . "</h2>";
+				if ($post_type == 'portfolio') {
+					$output .= "<h2 class='client'>Client: " . get_field('pfo_client') . "</h2>";
+					$output .= "<h2 class='author'>Created By: " . get_field('pfo_author')->post_title . "</h2>";
+				} else if ($post_type == 'coalition') {
+					
+				}
 				                                                               
 				// *** Here we will definitely want to change back ... ***
 				// $output .= "<div class='excerpt'>" . $this->ExcerptMore(90); 
