@@ -390,16 +390,17 @@ class WPIsotope {
 		// setup isotope query
 		$paged = ( get_query_var('page') ) ? get_query_var('page') : 1;
 					
-		$query_args = array(
-			'post_type'      => $types,
-			'orderby'        => $rand,
-			'posts_per_page' => $ppp,
-			'paged'          => get_query_var( 'page' ),
-			'post__not_in'   => array($page_id)
+		query_posts(
+			array(
+				'post_type'      => $types,
+				'orderby'        => $rand,
+				'posts_per_page' => $ppp,
+				'paged'          => get_query_var( 'page' ),
+				'post__not_in'   => array($page_id)
+			)
 		);
-		$the_query = new WP_Query( $query_args );
 		
-		if ( $the_query->have_posts() ) : 
+		if ( have_posts() ) : 
 
 			$types = ( $types == 'any' ) ? array_values(get_post_types( array( 'public' => true ), 'names', 'and' )) : 		
 			$post_type = $types[0];
@@ -415,6 +416,7 @@ class WPIsotope {
 				   ( isset($filter_format) && $filter_format != 'false' && $filter_format != false ) ) ) {
 						$output .= '<ul class="filters cf show-all"><li class="filter-prepend">' . $filter_prepend_text . '</li>' .
 							' <li><a href="#" data-filter="*">Show All</a></li>';
+
 					if ( $filter_types != 'false' ) {			
 						foreach ( $types as $type ) {
 							$output .= '<li><a href="#" data-filter=".type-' . $type . '">' . $type . '</a></li>';
@@ -458,7 +460,7 @@ class WPIsotope {
 			
 			$output    .= "<section id='iso-container'>";
 		
-			while ( $the_query->have_posts() ) : $the_query->the_post();
+			while ( have_posts() ) : the_post();
 				
 				$content = apply_filters( 'the_content', get_the_content() );
 				$content = str_replace(']]>', ']]&gt;', $content);
