@@ -227,7 +227,10 @@ class WPIsotope {
 		$id       = $_POST['id'];
 		$post     = get_post( $id );
 		
-		$content  = wpautop( $post->post_content );
+		// Again, the Images thing here is very Lakshmi-specific.
+		$images = $this->GetGalleryImages( $id, 'coalition-full' );
+		
+		$content  = wpautop( $images . $post->post_content );
 		$content  = do_shortcode( $content );
 		$response = json_encode( array( 'success' => true, 'content' => $content ) );
 
@@ -341,26 +344,26 @@ class WPIsotope {
 		add_shortcode( 'wpisotope', array( $this, 'RunShortcode' ) );
 	}
 	
+	function GetGalleryImages( $post_id, $size ) {
+		$images =& get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post_id );
+		$counter=0;
+		$result = "<div class='images-wrapper-{$size}'>";
+		$result .= '<div class="images">';
+		foreach( (array) $images as $attachment_id => $attachment )
+		{
+		   $counter++;
+			 $image = wp_get_attachment_image_src( $attachment_id, $size );
+			 $result .= "<img src='{$image[0]}' />";
+		}
+		$result .= '</div>';
+		$result .= '<div class="pager"></div>';
+		$result .= '</div>';
+		return $result;
+	}
+
 	function RunShortcode( $attr ) {
 		
 		global $wp_query;
-
-		function get_gallery_images( $post_id, $size ) {
-			$images =& get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post_id );
-			$counter=0;
-			$result = "<div class='images-wrapper-{$size}'>";
-			$result .= '<div class="images">';
-			foreach( (array) $images as $attachment_id => $attachment )
-			{
-			   $counter++;
-				 $image = wp_get_attachment_image_src( $attachment_id, $size );
-				 $result .= "<img src='{$image[0]}' />";
-			}
-			$result .= '</div>';
-			$result .= '<div class="pager"></div>';
-			$result .= '</div>';
-			return $result;
-		}
 
 		$page_id       = $wp_query->get_queried_object_id();
 		$options       = $this->GetOptions();
@@ -431,11 +434,11 @@ class WPIsotope {
 						}
 					}
 					// *** Filter taxonomies has a bug ***
-					// if ( isset($filter_taxs) && $filter_taxs != 'false' && $filter_taxs != false ) {
-					// 	foreach ( $taxonomiez as $tax ) {
-					// 		$output .= '<li><a href="#" data-filter=".taxonomy-' . $tax->slug . '">' . $tax->slug . '</a></li>';
-					// 	}
-					// }
+					if ( isset($filter_taxs) && $filter_taxs != 'false' && $filter_taxs != false ) {
+						foreach ( $taxonomiez as $tax ) {
+							$output .= '<li><a href="#" data-filter=".taxonomy-' . $tax->slug . '">' . $tax->slug . '</a></li>';
+						}
+					}
 
 					// **** ONLY for Lakshmi! ****
 					$output .= '<li class="search">' . get_search_form(false) . '<span class="icon"></span></li>';
@@ -500,7 +503,7 @@ class WPIsotope {
 				// *** More Lakshmi stuff ***
 				if ($post_type == 'coalition' or $post_type == 'portfolio') {
 					global $post;
-					$output .= get_gallery_images($post->ID, 'coalition-thumb');
+					$output .= $this->GetGalleryImages($post->ID, 'coalition-thumb');
 				} else {
 					if ( current_theme_supports( 'post-thumbnails' ) ) {       
 						// *** Should probably change back ***
