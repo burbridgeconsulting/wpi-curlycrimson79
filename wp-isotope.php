@@ -347,7 +347,7 @@ class WPIsotope {
 	function GetGalleryImages( $post_id, $size ) {
 		$images =& get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post_id );
 		$counter=0;
-		$result = "<div class='images-wrapper-{$size}'>";
+		$result = "<div class='images-wrapper-{$size} images-wrapper'>";
 		$result .= '<div class="images">';
 		foreach( (array) $images as $attachment_id => $attachment )
 		{
@@ -633,6 +633,20 @@ class WPIsotope {
 									that.addClass('big');
 									container.isotope('reLayout');
 									that.data( 'click', 'on' );
+									
+									// Add cycling code for large images (for Lakshmi) here
+									// This is pretty much the same cycling code as for the small boxes, but
+									// that code can go in the theme directory, as part of the theme behavior
+									that.find('.images-wrapper-coalition-full').each(function() {
+											var slideshow = jQuery(this).find('.images')
+											slideshow.cycle({
+												autostop: 1,
+												// autostopCount: 1
+												pager: jQuery(this).find('.pager'),
+												// allowPagerClickBubble: false
+											})
+									})
+									
 								});
 								
 							} else {
