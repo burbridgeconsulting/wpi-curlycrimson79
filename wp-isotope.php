@@ -347,17 +347,17 @@ class WPIsotope {
 	function GetGalleryImages( $post_id, $size ) {
 		$images =& get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post_id );
 		$counter=0;
-		$result = "<div class='images-wrapper-{$size} images-wrapper'>";
-		$result .= '<div class="images">';
+		$result = "\n\n<div class='images-wrapper-{$size} images-wrapper'>\n";
+		$result .= "\t" . '<div class="images">' . "\n";
 		foreach( (array) $images as $attachment_id => $attachment )
 		{
 		   $counter++;
 			 $image = wp_get_attachment_image_src( $attachment_id, $size );
-			 $result .= "<img src='{$image[0]}' />";
+			 $result .= "\t\t<img src='{$image[0]}' />\n";
 		}
-		$result .= '</div>';
-		$result .= '<div class="pager"></div>';
-		$result .= '</div>';
+		$result .= "\t" . '</div>' . "\n";
+		// $result .= '<div class="pager"></div>';
+		$result .= '</div>' . "\n\n";
 		return $result;
 	}
 
@@ -642,8 +642,8 @@ class WPIsotope {
 											slideshow.cycle({
 												autostop: 1,
 												// autostopCount: 1
-												pager: jQuery(this).find('.pager'),
-												// allowPagerClickBubble: false
+												// pager: jQuery(this).find('.pager'),
+												// // allowPagerClickBubble: false
 											})
 									})
 									
