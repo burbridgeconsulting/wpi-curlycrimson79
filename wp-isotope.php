@@ -638,13 +638,22 @@ class WPIsotope {
 									// This is pretty much the same cycling code as for the small boxes, but
 									// that code can go in the theme directory, as part of the theme behavior
 									that.find('.images-wrapper-coalition-full').each(function() {
-											var slideshow = jQuery(this).find('.images')
-											slideshow.cycle({
+
+										var slideshow = $(this).find('.images')
+										slideshow.cycle({ 
+												timeout: 0, 
+												speed: 400,
 												autostop: 1,
-												// autostopCount: 1
-												// pager: jQuery(this).find('.pager'),
-												// // allowPagerClickBubble: false
+												autostopCount: 1
 											})
+
+											slideshow.hover(function() {
+												$(this).cycle({ delay: -500, speed: 400, timeout: 500 })
+											},
+											function() {
+												$(this).cycle('stop')
+											})
+
 									})
 									
 								});
