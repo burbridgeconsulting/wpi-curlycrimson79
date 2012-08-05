@@ -349,12 +349,22 @@ class WPIsotope {
 		$counter=0;
 		$result = "\n\n<div class='images-wrapper-{$size} images-wrapper'>\n";
 		$result .= "\t" . '<div class="images">' . "\n";
-		foreach( (array) $images as $attachment_id => $attachment )
-		{
-		   $counter++;
-			 $image = wp_get_attachment_image_src( $attachment_id, $size );
-			 $result .= "\t\t<img src='{$image[0]}' />\n";
+		
+		// If there are no images in gallery, just use featured image
+		if (count($images) > 0) {
+
+			foreach( (array) $images as $attachment_id => $attachment ) {
+			   $counter++;
+				 $image = wp_get_attachment_image_src( $attachment_id, $size );
+				 $result .= "\t\t<img src='{$image[0]}' />\n";
+			}
+
+		} else {
+			 $attr = array( );
+			 $image = get_the_post_thumbnail( $post_id, $size, $attr );
+			 $result .= "\t\t{$image}\n";
 		}
+
 		$result .= "\t" . '</div>' . "\n";
 		// $result .= '<div class="pager"></div>';
 		$result .= '</div>' . "\n\n";
