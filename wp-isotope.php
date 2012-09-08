@@ -657,12 +657,12 @@ class WPIsotope {
 												autostopCount: 1
 											})
 
-											slideshow.hover(function() {
-												$(this).cycle({ delay: -500, speed: 400, timeout: 500 })
-											},
-											function() {
-												$(this).cycle('stop')
-											})
+											// slideshow.hover(function() {
+											// 	$(this).cycle({ delay: -500, speed: 400, timeout: 500 })
+											// },
+											// function() {
+											// 	$(this).cycle('stop')
+											// })
 
 									})
 									
