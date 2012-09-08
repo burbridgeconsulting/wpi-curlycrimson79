@@ -537,7 +537,7 @@ class WPIsotope {
 						$output .= "<h2 class='client'>Client: " . get_field('pfo_client') . "</h2>";
 					}
 					if (get_field('pfo_author')->post_title) {
-						$output .= "<h2 class='author'>Created By: " . get_field('pfo_author')->post_title . "</h2>";
+						$output .= "<h2 class='author'>" . get_field('pfo_author')->post_title . "</h2>";
 					}
 				} else if ($post_type == 'coalition') {
 					
