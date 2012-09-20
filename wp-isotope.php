@@ -359,11 +359,13 @@ class WPIsotope {
 				 $result .= "\t\t<img src='{$image[0]}' />\n";
 			}
 
-		} else {
-			 $attr = array( );
-			 $image = get_the_post_thumbnail( $post_id, $size, $attr );
-			 $result .= "\t\t{$image}\n";
-		}
+		} 
+		
+		// else {
+		// 	 $attr = array( );
+		// 	 $image = get_the_post_thumbnail( $post_id, $size, $attr );
+		// 	 $result .= "\t\t{$image}\n";
+		// }
 
 		$result .= "\t" . '</div>' . "\n";
 		// $result .= '<div class="pager"></div>';
