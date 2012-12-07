@@ -558,9 +558,9 @@ class WPIsotope {
 				// *** Here we will definitely want to change back ... ***
 				// $output .= "<div class='excerpt'>" . $this->ExcerptMore(90); 
 				
-				$output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
+				// $output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
 
-				$output .= "<span class='iso-close'><img src='" . plugin_dir_url( __FILE__ ) . "images/close.png'/></span>";
+				// $output .= "<span class='iso-close'><img src='" . plugin_dir_url( __FILE__ ) . "images/close.png'/></span>";
 				
 				// *** Footer stuff that might be there or not ***
 				// $output .= "<div class='iso-meta iso-footer'>";
@@ -569,7 +569,14 @@ class WPIsotope {
 				// $output .= "<div class='iso-comments'>" . $comment . " comments </div>";
 				// $output .= "</div>";
 				
-				$output .= "</div>";	// end post div	
+				$output .= "<ul class='iso-meta iso-footer'>";
+				$output .= "<li class='comments-icon icon'> </li>";
+				$output .= "<li class='music-icon icon'> </li>";
+				$output .= "<li class='like-icon icon'> </li>";
+				$output .= "</ul>";	
+				
+				$output .= "</div>"; // end post div	
+				
 			endwhile; 
 			
 			$output    .= "<div class='navigation cf'>";
