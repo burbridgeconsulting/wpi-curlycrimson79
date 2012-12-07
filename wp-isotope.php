@@ -4,7 +4,7 @@ Plugin Name: WP Isotope
 Plugin URI: http://chrisburbridge.com/wp-isotope
 Description: 
 Version: 0.1
-Author: Chris Burbridge
+Author: Jacob Dubail, Chris Burbridge
 Author URI: http://chrisburbridge.com
 
 Copyright 2012  Chris Burbridge  (email : christopherburbridge@gmail.com)
@@ -61,8 +61,7 @@ class WPIsotope {
 		//add_action('init', array($this,'RouteActions'),2);
 
 		//register_activation_hook(__FILE__,array($this,'Activate'));
-		//register_deactivation_hook(__FILE__,array($this,'Deactivate'));
-		
+		//register_deactivation_hook(__FILE__,array($this,'Deactivate'));		
 
 		add_action( 'init', array( $this, 'RegisterShortcode' ) );
 		add_action( 'init', array( $this, 'GetOptions' ) );
@@ -117,7 +116,7 @@ class WPIsotope {
 	}
 	
 	function MetaLinks($page) {
-		//Load the custom button API
+		//Load the custom button API--for backend UI
 		include_once 'screen-meta-links.php';
 			
 		//echo "B";	
@@ -184,7 +183,7 @@ class WPIsotope {
 	function ConfigPageHtml() {
 		$content = '';
 		ob_start(); // This function begins output buffering, this means that any echo or output that is generated after this function will be captured by php instead of being sent directly to the user.
-			require_once('html/config.php'); // This function includes my configuration page html. Open the file html/config.php to see how to format a configuration page to save options.
+			require_once('html/settings.php'); // This function includes my configuration page html. Open the file html/config.php to see how to format a configuration page to save options.
 			$content = ob_get_contents(); // This function takes all the html retreived from html/config.php and stores it in the variable $content
 		ob_end_clean(); // This function ends the output buffering
 		
@@ -213,7 +212,6 @@ class WPIsotope {
 	
 	function Styles() {		
 		wp_enqueue_style( 'WPIsotope_css', plugin_dir_url( __FILE__ ) . 'css/isotope.css' );
-		// wp_enqueue_style( 'WPIsotope_css_custom', plugin_dir_url( __FILE__ ) . 'css/isotope-custom.css' );
 	}
 	
 	function Scripts() {
@@ -450,10 +448,10 @@ class WPIsotope {
 						}
 					}
 
-					// **** ONLY for Lakshmi! ****
-					$output .= '<li class="search">' . get_search_form(false) . '<span class="icon"></span></li>';
-					
 					$output .= '</ul>';
+					
+					// This is VERY optional!
+					$output .= '<ul class="search"><li>' . get_search_form(false) . '<span class="icon"></span></li></ul>';
 				}
 			}  
 			
@@ -562,7 +560,7 @@ class WPIsotope {
 				
 				$output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
 
-				$output .= "<span class='iso-close'><img src='" . plugin_dir_url( __FILE__ ) . "i/close.png'/></span>";
+				$output .= "<span class='iso-close'><img src='" . plugin_dir_url( __FILE__ ) . "images/close.png'/></span>";
 				
 				// *** Footer stuff that might be there or not ***
 				// $output .= "<div class='iso-meta iso-footer'>";
@@ -582,6 +580,7 @@ class WPIsotope {
 			$output    .= "
 			<script>
 				(function($) {
+					
 					$(function() {
 										
 						var container = $('#iso-container');
@@ -591,7 +590,7 @@ class WPIsotope {
 							itemSelector   : '.item',
 							layoutMode     : 'masonry',
 							masonry : {
-								columnWidth : 275
+								columnWidth : 244
 							},
 							getSortData    : {
 								post_type   : function ( elem ) {
@@ -634,7 +633,7 @@ class WPIsotope {
 							
 							if ( !that.hasClass('big') && that.data( 'click' ) !== 'off' ) {
 								
-								that.data( 'click', 'off' ).append('<div id=loading style=\"background: url(" . plugin_dir_url( __FILE__ ) . "i/loading.gif) no-repeat 50% 50% transparent;\" />');
+								that.data( 'click', 'off' ).append('<div id=loading style=\"background: url(" . plugin_dir_url( __FILE__ ) . "images/loading.gif) no-repeat 50% 50% transparent;\" />');
 								
 								$.post( '/wp-admin/admin-ajax.php', { action: 'isoGetPost', id: id }, function(data) {
 									$('#loading').remove();
@@ -674,7 +673,7 @@ class WPIsotope {
 								that.data( 'click', 'on' );
 							}
 							
-										      });  
+						});  
 						
 					});
 				})(jQuery);

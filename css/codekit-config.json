@@ -32,15 +32,6 @@
       "inputAbbreviatedPath" : "\/admin.css",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 16
-    },
-    "\/isotope-custom.css" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/isotope-custom.css",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 16
     }
   },
   "manualImportLinks" : [
