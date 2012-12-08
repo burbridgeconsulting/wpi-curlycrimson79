@@ -560,7 +560,16 @@ class WPIsotope {
 				
 				$output .= "<ul class='iso-meta iso-footer'>";
 				$output .= "<li class='comments-icon icon'> </li>";
-				$output .= "<li class='music-icon icon'> </li>";
+
+				$output .= "<li id='icon-player-{$id}' class='music-icon icon'>";
+				if (get_field('song')) {
+					$output .= "<audio id='player-{$id}' class='audio-player' controls=\"controls\" loop=\"loop\">
+					  <source src=\"";
+					$output .= get_field('song');
+				}
+				$output .= "\" type=\"audio/mpeg\"></audio>";
+				$output .= " </li>";
+				
 				$output .= "<li class='like-icon icon'> </li>";
 				$output .= "</ul>";	
 				
