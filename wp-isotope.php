@@ -507,6 +507,9 @@ class WPIsotope {
 				$output .= "' data-post_type='" . get_post_type()    . "' ";
 				$output .= "' data-category='" . $cat[0]->name  . "' ";				
 				$output .= ">"; // end open post div
+				
+				// Add internal wrapper for all stuff, so we can treat it easily with relative positioning, etc.
+				$output .= "<div class='iso-contents'>";
 
 				// *** More Lakshmi stuff ***
 				if ($post_type == 'coalition' or $post_type == 'portfolio') {
@@ -525,6 +528,8 @@ class WPIsotope {
 				 * Provide a valid taxonomy for this object type.
 				 */
 				
+				$output .= "<div class='iso-excerpt'>" . get_the_excerpt() . "</div>"; 
+
 				$output .= "<div class='title-wrap'>";
 				
 				$output .= "<h2 class='title'>" . get_the_title() . "</h2>";
@@ -555,9 +560,6 @@ class WPIsotope {
 
 				$output .= "</div> <!-- title wrap -->";
 				                                                               
-				// *** Here we will definitely want to change back ... ***
-				// $output .= "<div class='excerpt'>" . $this->ExcerptMore(90); 
-				
 				// $output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
 
 				// $output .= "<span class='iso-close'><img src='" . plugin_dir_url( __FILE__ ) . "images/close.png'/></span>";
@@ -574,6 +576,8 @@ class WPIsotope {
 				$output .= "<li class='music-icon icon'> </li>";
 				$output .= "<li class='like-icon icon'> </li>";
 				$output .= "</ul>";	
+				
+				$output .= "</div> <!-- .iso-contents -->";
 				
 				$output .= "</div>"; // end post div	
 				
