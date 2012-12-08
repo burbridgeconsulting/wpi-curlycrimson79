@@ -225,23 +225,16 @@ class WPIsotope {
 		$id       = $_POST['id'];
 		$post     = get_post( $id );
 		
-		// Again, the Images thing here is very Lakshmi-specific.
-		$images = $this->GetGalleryImages( $id, 'coalition-full' );
-		
 		$content  = wpautop( $images . $post->post_content );
 		$content  = do_shortcode( $content );
 		$response = json_encode( array( 'success' => true, 'content' => $content ) );
 
-// $handle = fopen("/Users/chrisburbridge/Sites/awakemedia/wp-content/plugins/wp-isotope/log.txt", "w");
-// fwrite($handle, $response);
-// fclose($handle);
-
-	    // response output
-	    header( "Content-Type: application/json" );
-	    echo $response;
-	 
-	    // IMPORTANT: don't forget to "exit"
-	    exit;
+    // response output
+    header( "Content-Type: application/json" );
+    echo $response;
+ 
+    // IMPORTANT: don't forget to "exit"
+    exit;
 	}
 	
 	function GetOptions() {
@@ -558,17 +551,21 @@ class WPIsotope {
 				// $output .= "<div class='iso-comments'>" . $comment . " comments </div>";
 				// $output .= "</div>";
 				
-				$output .= "<ul class='iso-meta iso-footer'>";
+				$output .= "<ul class='iso-meta iso-footer";
+				if (get_field('song')) { 
+					$output .= ' has-audio';
+				}
+				$output .="'>";
 				$output .= "<li class='comments-icon icon'> </li>";
 
-				$output .= "<li id='icon-player-{$id}' class='music-icon icon'>";
 				if (get_field('song')) {
+					$output .= "<li id='icon-player-{$id}' class='music-icon icon'>";
 					$output .= "<audio id='player-{$id}' class='audio-player' controls=\"controls\" loop=\"loop\">
 					  <source src=\"";
 					$output .= get_field('song');
+					$output .= "\" type=\"audio/mpeg\"></audio>";
+					$output .= " </li>";
 				}
-				$output .= "\" type=\"audio/mpeg\"></audio>";
-				$output .= " </li>";
 				
 				$output .= "<li class='like-icon icon'> </li>";
 				$output .= "</ul>";	
@@ -649,29 +646,6 @@ class WPIsotope {
 									that.addClass('big');
 									container.isotope('reLayout');
 									that.data( 'click', 'on' );
-									
-									// Add cycling code for large images (for Lakshmi) here
-									// This is pretty much the same cycling code as for the small boxes, but
-									// that code can go in the theme directory, as part of the theme behavior
-									that.find('.images-wrapper-coalition-full').each(function() {
-
-										var slideshow = $(this).find('.images')
-										slideshow.cycle({ 
-												timeout: 0, 
-												speed: 400,
-												autostop: 1,
-												autostopCount: 1
-											})
-
-											// slideshow.hover(function() {
-											// 	$(this).cycle({ delay: -500, speed: 400, timeout: 500 })
-											// },
-											// function() {
-											// 	$(this).cycle('stop')
-											// })
-
-									})
-									
 								});
 								
 							} else {
