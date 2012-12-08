@@ -75,7 +75,7 @@ class WPIsotope {
 		
 		//add_filter('post_class', array($this,'PostClass'));
 		add_filter('excerpt_length',   array($this,'ExcerptLength'));
-		//add_filter('excerpt_more',     array($this,'ExcerptMore'));
+		add_filter('excerpt_more',     array($this,'ExcerptMore'));
 		
 				
 		/* As you can see, filters also occasionally contain variables. This filter lets us add a little link underneath our Plugins name on the Plugins page that links the user to the Plugins settings page. */
@@ -292,21 +292,8 @@ class WPIsotope {
 	}
 
 	function ExcerptMore($charlength) {
-		$excerpt = get_the_excerpt();      
-		
-		$charlength++;
-		if( strlen( $excerpt ) > $charlength ) {
-			$subex   = substr( $excerpt, 0, $charlength-5 );
-			$exwords = explode( " ",$subex );
-			$excut   = -( strlen( $exwords[ count( $exwords ) - 1 ] ) );
-			if( $excut < 0 ) {
-				return substr( $subex, 0, $excut ) . "</div>";
-			} else {    
-				return $subex . "</div>";
-			}
-		} else {
-			return $excerpt . "</div>";
-		}
+		global $post;
+		return ' <a href="'. get_permalink($post->ID) . '">Read the Rest...</a>';
 	}
 
 	function Pagination($range = 4) {
