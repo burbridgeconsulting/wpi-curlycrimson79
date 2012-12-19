@@ -541,6 +541,7 @@ class WPIsotope {
 				$output .= "</div> <!-- title wrap -->";
 				                                                               
 				// $output .= "<div class='content'><br /><a href='" . $perma . "'>read more</a></div>";
+				$output .= "<div class='content'></div>";
 
 				// $output .= "<span class='iso-close'><img src='" . plugin_dir_url( __FILE__ ) . "images/close.png'/></span>";
 				
